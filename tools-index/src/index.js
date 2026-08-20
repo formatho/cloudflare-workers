@@ -1,0 +1,76 @@
+// Formatho Tools Index — directory of all free privacy-first edge APIs
+// HTML index at /, JSON list at /api, sitemap at /sitemap.xml
+
+const TOOLS = [
+  ['JSON Formatter', 'Format & validate JSON with configurable indent.', 'https://json-formatter-formatho.filesformatho.workers.dev/', 'https://formatho.com/json-formatter'],
+  ['Base64 Encoder/Decoder', 'Unicode-safe Base64 encode & decode.', 'https://base64-formatho.filesformatho.workers.dev/', 'https://formatho.com/base64-encoder-decoder'],
+  ['URL Encoder/Decoder', 'Percent-encode & decode URLs.', 'https://url-encoder-formatho.filesformatho.workers.dev/', 'https://formatho.com/url-encoder-decoder'],
+  ['MD5 Generator', 'MD5 hashes for checksums & legacy use.', 'https://md5-generator-formatho.filesformatho.workers.dev/', 'https://formatho.com/md5-generator'],
+  ['UUID Generator', 'RFC 4122 v4 UUIDs, bulk up to 100.', 'https://uuid-generator-formatho.filesformatho.workers.dev/', 'https://formatho.com/uuid-generator'],
+  ['SHA-256 Generator', 'SHA-256 hashes via Web Crypto.', 'https://sha256-generator-formatho.filesformatho.workers.dev/', 'https://formatho.com/sha256-generator'],
+  ['Random String Generator', 'Crypto-secure random strings, 4 charsets.', 'https://random-string-formatho.filesformatho.workers.dev/', 'https://formatho.com/random-string-generator'],
+  ['Timestamp Converter', 'Unix ⇄ ISO/UTC, auto s/ms detection.', 'https://timestamp-converter-formatho.filesformatho.workers.dev/', 'https://formatho.com/timestamp-converter'],
+  ['Slug Generator', 'SEO-friendly URL slugs, diacritic folding.', 'https://slug-generator-formatho.filesformatho.workers.dev/', 'https://formatho.com/slug-generator'],
+  ['Hash Generator', 'MD5, SHA-1, SHA-256, SHA-512 in one call.', 'https://hash-generator-formatho.filesformatho.workers.dev/', 'https://formatho.com/hash-generator'],
+];
+
+const SELF = 'https://formatho-tools.filesformatho.workers.dev';
+
+function htmlPage() {
+  const items = TOOLS.map(([name, desc, url, tool]) => `
+  <article>
+    <h2><a href="${url}" rel="noopener">${name}</a></h2>
+    <p>${desc}</p>
+    <p class="links">API: <a href="${url}" rel="noopener">${url.replace('https://', '')}</a> · Browser tool: <a href="${tool}" rel="noopener">formatho.com${new URL(tool).pathname}</a></p>
+  </article>`).join('\n');
+
+  const sitemapUrls = TOOLS.map(([,, url]) => `  <url><loc>${url}</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>`).join('\n');
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Formatho Tools — Free Privacy-First Developer APIs</title>
+<meta name="description" content="Directory of 10 free, privacy-first developer tool APIs: JSON formatter, Base64, URL encoder, MD5, UUID, SHA-256, random strings, timestamps, slugs, hashes. Zero tracking.">
+<link rel="canonical" href="${SELF}/">
+<style>
+:root { color-scheme: light dark; }
+body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; max-width: 760px; margin: 0 auto; padding: 1.5rem 1rem 3rem; line-height: 1.6; }
+h1 { font-size: 1.6rem; }
+article { border-bottom: 1px solid #8883; padding: 1rem 0; }
+article h2 { margin: 0 0 .25rem; font-size: 1.15rem; }
+article p { margin: .25rem 0; }
+.links { font-size: .85rem; color: #888; }
+a { color: #06c; }
+footer { margin-top: 2rem; color: #888; font-size: .85rem; }
+</style>
+</head>
+<body>
+<h1>Formatho Tools — Free Privacy-First APIs</h1>
+<p>${TOOLS.length} free developer tool APIs running on Cloudflare's edge. <strong>Zero tracking, zero data collection, zero logging.</strong> Every tool also has a full client-side version on <a href="https://formatho.com">formatho.com</a> where your data never leaves your browser.</p>
+${items}
+<footer>© <a href="https://formatho.com">formatho.com</a> — privacy-first developer tools · <a href="/sitemap.xml">sitemap.xml</a> · <a href="/api">JSON list</a></footer>
+</body>
+</html>`;
+}
+
+export default {
+  async fetch(request) {
+    const url = new URL(request.url);
+    if (url.pathname === '/sitemap.xml') {
+      const urls = TOOLS.map(([,, u]) => `  <url><loc>${u}</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>`).join('\n');
+      const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>${SELF}/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>\n${urls}\n</urlset>\n`;
+      return new Response(xml, { headers: { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=86400' } });
+    }
+    if (url.pathname === '/api') {
+      return new Response(JSON.stringify({
+        count: TOOLS.length,
+        tools: TOOLS.map(([name, desc, api, tool]) => ({ name, description: desc, api, browser_tool: tool })),
+        site: 'https://formatho.com',
+        privacy: 'Zero tracking, zero data collection',
+      }, null, 2), { headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'X-Privacy-Policy': 'Zero tracking, zero data collection' } });
+    }
+    return new Response(htmlPage(), { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=3600', 'X-Privacy-Policy': 'Zero tracking, zero data collection' } });
+  },
+};
