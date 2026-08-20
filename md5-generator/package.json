@@ -1,0 +1,5 @@
+{
+  "name": "md5-generator-formatho",
+  "private": true,
+  "description": "Privacy-first MD5 hash generator API on Cloudflare Workers by formatho.com"
+}

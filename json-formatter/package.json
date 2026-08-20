@@ -1,0 +1,5 @@
+{
+  "name": "json-formatter-formatho",
+  "private": true,
+  "description": "Privacy-first JSON formatter API on Cloudflare Workers by formatho.com"
+}

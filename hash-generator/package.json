@@ -1,0 +1,5 @@
+{
+  "name": "hash-generator-formatho",
+  "private": true,
+  "description": "Privacy-first multi-algorithm hash generator API on Cloudflare Workers by formatho.com"
+}

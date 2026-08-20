@@ -1,0 +1,5 @@
+{
+  "name": "slug-generator-formatho",
+  "private": true,
+  "description": "Privacy-first URL slug generator API on Cloudflare Workers by formatho.com"
+}

@@ -1,0 +1,5 @@
+{
+  "name": "uuid-generator-formatho",
+  "private": true,
+  "description": "Privacy-first UUID v4 generator API on Cloudflare Workers by formatho.com"
+}

@@ -1,0 +1,5 @@
+{
+  "name": "url-encoder-formatho",
+  "private": true,
+  "description": "Privacy-first URL encoder/decoder API on Cloudflare Workers by formatho.com"
+}

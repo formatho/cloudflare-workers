@@ -1,0 +1,5 @@
+{
+  "name": "base64-formatho",
+  "private": true,
+  "description": "Privacy-first Base64 encoder/decoder API on Cloudflare Workers by formatho.com"
+}
