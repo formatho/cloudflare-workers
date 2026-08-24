@@ -37,3 +37,22 @@ Every API is stateless — nothing is stored, logged, or shared. For full browse
 ## License
 
 MIT
+
+## 🧩 Embeddable Widgets (NEW)
+
+Free, iframe-embeddable, no-tracking widgets you can drop into any blog, docs site, or README:
+
+| Widget | URL |
+|---|---|
+| Base64 Encoder/Decoder | https://embed.formatho.workers.dev/base64 |
+| UUID Generator | https://embed.formatho.workers.dev/uuid |
+| SHA-256 Hash | https://embed.formatho.workers.dev/hash |
+| Unix Timestamp | https://embed.formatho.workers.dev/timestamp |
+
+```html
+<iframe src="https://embed.formatho.workers.dev/base64"
+        width="420" height="340" style="border:0;border-radius:8px"
+        title="Base64 Encoder by Formatho"></iframe>
+```
+
+All widgets run client-side with zero tracking — same privacy promise as [formatho.com](https://formatho.com).
