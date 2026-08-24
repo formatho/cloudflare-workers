@@ -1,5 +1,7 @@
 # Formatho Cloudflare Workers — Free Privacy-First APIs
 
+<p align="center"><img src=".github/logo.png" width="120" alt="Formatho"></p>
+
 Free, fast, zero-tracking developer tool APIs running on [Cloudflare Workers](https://workers.cloudflare.com/) — by [formatho.com](https://formatho.com), privacy-first developer tools.
 
 **No tracking. No data collection. No logs. Ever.**
