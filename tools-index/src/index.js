@@ -12,6 +12,10 @@ const TOOLS = [
   ['Timestamp Converter', 'Unix ⇄ ISO/UTC, auto s/ms detection.', 'https://timestamp-converter-formatho.filesformatho.workers.dev/', 'https://formatho.com/timestamp-converter'],
   ['Slug Generator', 'SEO-friendly URL slugs, diacritic folding.', 'https://slug-generator-formatho.filesformatho.workers.dev/', 'https://formatho.com/slug-generator'],
   ['Hash Generator', 'MD5, SHA-1, SHA-256, SHA-512 in one call.', 'https://hash-generator-formatho.filesformatho.workers.dev/', 'https://formatho.com/hash-generator'],
+  ['JWT Decoder', 'Decode JWT header, payload & claims (no verification).', 'https://jwt-decoder-formatho.filesformatho.workers.dev/', 'https://formatho.com/jwt'],
+  ['Cron Expression Explainer', 'Plain-English cron explanations + next run times.', 'https://cron-parser-formatho.filesformatho.workers.dev/', 'https://formatho.com/crontab-generator'],
+  ['Case Converter', 'camelCase, snake_case, kebab-case & 8 more in one call.', 'https://case-converter-formatho.filesformatho.workers.dev/', 'https://formatho.com/case-converter'],
+  ['Lorem Ipsum Generator', 'Placeholder paragraphs/sentences, json|text|html.', 'https://lorem-ipsum-formatho.filesformatho.workers.dev/', 'https://formatho.com/lorem'],
 ];
 
 const SELF = 'https://formatho-tools.filesformatho.workers.dev';

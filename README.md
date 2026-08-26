@@ -1,7 +1,5 @@
 # Formatho Cloudflare Workers — Free Privacy-First APIs
 
-<p align="center"><img src=".github/logo.png" width="120" alt="Formatho"></p>
-
 Free, fast, zero-tracking developer tool APIs running on [Cloudflare Workers](https://workers.cloudflare.com/) — by [formatho.com](https://formatho.com), privacy-first developer tools.
 
 **No tracking. No data collection. No logs. Ever.**
@@ -20,6 +18,11 @@ Free, fast, zero-tracking developer tool APIs running on [Cloudflare Workers](ht
 | Random String Generator | https://random-string-formatho.filesformatho.workers.dev | `?length=32&charset=alphanumeric` |
 | Slug Generator | https://slug-generator-formatho.filesformatho.workers.dev | `?text=Hello World 123` |
 | Timestamp Converter | https://timestamp-converter-formatho.filesformatho.workers.dev | `?ts=1755706800` or `?iso=2026-08-20T13:00:00Z` |
+
+| JWT Decoder | https://jwt-decoder-formatho.filesformatho.workers.dev | `?token=eyJhbGci...` |
+| Cron Expression Explainer | https://cron-parser-formatho.filesformatho.workers.dev | `?expr=0+9+*+*+1-5` |
+| Case Converter | https://case-converter-formatho.filesformatho.workers.dev | `?text=hello+world` |
+| Lorem Ipsum Generator | https://lorem-ipsum-formatho.filesformatho.workers.dev | `?paragraphs=3&format=text` |
 
 Each worker lives in its own directory with its own `wrangler.toml` and README with full usage docs.
 
