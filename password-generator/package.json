@@ -1,0 +1,5 @@
+{
+  "name": "password-generator-formatho",
+  "private": true,
+  "description": "Privacy-first crypto-secure password generator API on Cloudflare Workers by formatho.com"
+}

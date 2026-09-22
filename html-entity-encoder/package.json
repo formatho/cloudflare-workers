@@ -1,0 +1,5 @@
+{
+  "name": "html-entity-encoder-formatho",
+  "private": true,
+  "description": "Privacy-first HTML entity encoder/decoder API on Cloudflare Workers by formatho.com"
+}

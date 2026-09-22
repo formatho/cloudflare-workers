@@ -16,6 +16,8 @@ const TOOLS = [
   ['Cron Expression Explainer', 'Plain-English cron explanations + next run times.', 'https://cron-parser-formatho.filesformatho.workers.dev/', 'https://formatho.com/crontab-generator'],
   ['Case Converter', 'camelCase, snake_case, kebab-case & 8 more in one call.', 'https://case-converter-formatho.filesformatho.workers.dev/', 'https://formatho.com/case-converter'],
   ['Lorem Ipsum Generator', 'Placeholder paragraphs/sentences, json|text|html.', 'https://lorem-ipsum-formatho.filesformatho.workers.dev/', 'https://formatho.com/lorem'],
+  ['HTML Entity Encoder/Decoder', 'Encode text to HTML entities & decode them back, Unicode-aware.', 'https://html-entity-encoder-formatho.filesformatho.workers.dev/', 'https://formatho.com/html-entity-encoder'],
+  ['Password Generator', 'Crypto-secure passwords, 8–128 chars, custom charsets, bulk.', 'https://password-generator-formatho.filesformatho.workers.dev/', 'https://formatho.com/password-generator'],
 ];
 
 const SELF = 'https://formatho-tools.filesformatho.workers.dev';
@@ -36,7 +38,7 @@ function htmlPage() {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Formatho Tools — Free Privacy-First Developer APIs</title>
-<meta name="description" content="Directory of 10 free, privacy-first developer tool APIs: JSON formatter, Base64, URL encoder, MD5, UUID, SHA-256, random strings, timestamps, slugs, hashes. Zero tracking.">
+<meta name="description" content="Directory of 16 free, privacy-first developer tool APIs: JSON, Base64, URL & HTML entity encoders, hashes, UUID, passwords, timestamps, JWT and more. Zero tracking.">
 <link rel="canonical" href="${SELF}/">
 <style>
 :root { color-scheme: light dark; }

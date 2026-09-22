@@ -23,6 +23,8 @@ Free, fast, zero-tracking developer tool APIs running on [Cloudflare Workers](ht
 | Cron Expression Explainer | https://cron-parser-formatho.filesformatho.workers.dev | `?expr=0+9+*+*+1-5` |
 | Case Converter | https://case-converter-formatho.filesformatho.workers.dev | `?text=hello+world` |
 | Lorem Ipsum Generator | https://lorem-ipsum-formatho.filesformatho.workers.dev | `?paragraphs=3&format=text` |
+| HTML Entity Encoder/Decoder | https://html-entity-encoder-formatho.filesformatho.workers.dev | `?text=<div> & "x" → &amp;lt;div&amp;gt;` |
+| Password Generator | https://password-generator-formatho.filesformatho.workers.dev | `?length=24&count=3` |
 
 Each worker lives in its own directory with its own `wrangler.toml` and README with full usage docs.
 
