@@ -18,6 +18,10 @@ const TOOLS = [
   ['Lorem Ipsum Generator', 'Placeholder paragraphs/sentences, json|text|html.', 'https://lorem-ipsum-formatho.filesformatho.workers.dev/', 'https://formatho.com/lorem'],
   ['HTML Entity Encoder/Decoder', 'Encode text to HTML entities & decode them back, Unicode-aware.', 'https://html-entity-encoder-formatho.filesformatho.workers.dev/', 'https://formatho.com/html-entity-encoder'],
   ['Password Generator', 'Crypto-secure passwords, 8–128 chars, custom charsets, bulk.', 'https://password-generator-formatho.filesformatho.workers.dev/', 'https://formatho.com/password-generator'],
+  ['CSV to JSON Converter', 'CSV → JSON with headers, quoted fields, auto-typing, GET or POST.', 'https://csv-to-json-formatho.filesformatho.workers.dev/', 'https://formatho.com/csv-to-json'],
+  ['JSON to CSV Converter', 'JSON arrays → CSV with RFC 4180 escaping & custom delimiters.', 'https://json-to-csv-formatho.filesformatho.workers.dev/', 'https://formatho.com/json-to-csv'],
+  ['Regex Tester', 'Test regular expressions — matches, capture & named groups, indices as JSON.', 'https://regex-tester-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/regex-tester'],
+  ['Color Converter', 'HEX ⇄ RGB ⇄ HSL ⇄ HSV/CMYK + WCAG luminance in one call.', 'https://color-converter-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/color-converter'],
 ];
 
 const SELF = 'https://formatho-tools.filesformatho.workers.dev';
@@ -38,7 +42,7 @@ function htmlPage() {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Formatho Tools — Free Privacy-First Developer APIs</title>
-<meta name="description" content="Directory of 16 free, privacy-first developer tool APIs: JSON, Base64, URL & HTML entity encoders, hashes, UUID, passwords, timestamps, JWT and more. Zero tracking.">
+<meta name="description" content="Directory of 20 free, privacy-first developer tool APIs: JSON, CSV, Base64, regex, color, URL & HTML entity encoders, hashes, UUID, passwords, timestamps, JWT and more. Zero tracking.">
 <link rel="canonical" href="${SELF}/">
 <style>
 :root { color-scheme: light dark; }
@@ -55,6 +59,10 @@ footer { margin-top: 2rem; color: #888; font-size: .85rem; }
 <body>
 <h1>Formatho Tools — Free Privacy-First APIs</h1>
 <p>${TOOLS.length} free developer tool APIs running on Cloudflare's edge. <strong>Zero tracking, zero data collection, zero logging.</strong> Every tool also has a full client-side version on <a href="https://formatho.com">formatho.com</a> where your data never leaves your browser.</p>
+<section id="limits">
+<h2>Cloudflare free-plan limits</h2>
+<p>These APIs run on the Cloudflare Workers <strong>free plan</strong>. The request quota is <strong>per account</strong> — all Formatho edge APIs above share <strong>100,000 requests/day</strong> (resets 00:00 UTC) with <strong>10 ms CPU</strong> and <strong>128 MB memory</strong> per invocation. If the daily cap is exhausted, Cloudflare returns <a href="https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/error-1027/" rel="noopener">error 1027</a> until the UTC reset; CPU or memory overruns surface as error 1102. For unlimited use, run the browser tools on <a href="https://formatho.com">formatho.com</a> (no server involved) or self-deploy any Worker on your own free account. Full limits: <a href="https://developers.cloudflare.com/workers/platform/limits/" rel="noopener">official Cloudflare docs</a>.</p>
+</section>
 ${items}
 <footer>© <a href="https://formatho.com">formatho.com</a> — privacy-first developer tools · <a href="/sitemap.xml">sitemap.xml</a> · <a href="/api">JSON list</a></footer>
 </body>
@@ -75,6 +83,16 @@ export default {
         tools: TOOLS.map(([name, desc, api, tool]) => ({ name, description: desc, api, browser_tool: tool })),
         site: 'https://formatho.com',
         privacy: 'Zero tracking, zero data collection',
+        limits: {
+          plan: 'Cloudflare Workers Free (per-account, shared by all workers above)',
+          requests_per_day: 100000,
+          daily_reset: '00:00 UTC',
+          cpu_ms_per_request: 10,
+          memory_mb: 128,
+          on_daily_limit_exceeded: 'Cloudflare error 1027 until reset',
+          on_cpu_or_memory_exceeded: 'Cloudflare error 1102',
+          docs: 'https://developers.cloudflare.com/workers/platform/limits/',
+        },
       }, null, 2), { headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'X-Privacy-Policy': 'Zero tracking, zero data collection' } });
     }
     return new Response(htmlPage(), { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=3600', 'X-Privacy-Policy': 'Zero tracking, zero data collection' } });
