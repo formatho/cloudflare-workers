@@ -18,11 +18,19 @@ Free, fast, zero-tracking developer tool APIs running on [Cloudflare Workers](ht
 | Random String Generator | https://random-string-formatho.filesformatho.workers.dev | `?length=32&charset=alphanumeric` |
 | Slug Generator | https://slug-generator-formatho.filesformatho.workers.dev | `?text=Hello World 123` |
 | Timestamp Converter | https://timestamp-converter-formatho.filesformatho.workers.dev | `?ts=1755706800` or `?iso=2026-08-20T13:00:00Z` |
-
 | JWT Decoder | https://jwt-decoder-formatho.filesformatho.workers.dev | `?token=eyJhbGci...` |
 | Cron Expression Explainer | https://cron-parser-formatho.filesformatho.workers.dev | `?expr=0+9+*+*+1-5` |
 | Case Converter | https://case-converter-formatho.filesformatho.workers.dev | `?text=hello+world` |
 | Lorem Ipsum Generator | https://lorem-ipsum-formatho.filesformatho.workers.dev | `?paragraphs=3&format=text` |
+| HTML Entity Encoder/Decoder | https://html-entity-encoder-formatho.filesformatho.workers.dev | `?text=<a href="x">&action=encode` |
+| Password Generator | https://password-generator-formatho.filesformatho.workers.dev | `?length=20&count=5` |
+| CSV→JSON Converter | https://csv-to-json-formatho.filesformatho.workers.dev | `?csv=a,b%0C1,2` or POST JSON |
+| JSON→CSV Converter | https://json-to-csv-formatho.filesformatho.workers.dev | POST `[{"a":1,"b":2}]` |
+| Regex Tester | https://regex-tester-formatho.filesformatho.workers.dev | `?pattern=%5Cd%2B&text=a1b22` |
+| Color Converter | https://color-converter-formatho.filesformatho.workers.dev | `?color=%23ff6600` |
+| Diff Checker | https://diff-checker-formatho.filesformatho.workers.dev | `?a=old%20text&b=new%20text` or POST `{"a":...,"b":...}` |
+
+Directory of all 21: https://formatho-tools.filesformatho.workers.dev
 
 Each worker lives in its own directory with its own `wrangler.toml` and README with full usage docs.
 
@@ -37,7 +45,7 @@ Requires a Cloudflare account (`wrangler login`). Free tier works fine.
 
 ## Free plan limits (Cloudflare)
 
-All Workers in this repo run on the Cloudflare Workers **free plan**. Limits are **per account** and shared by every Worker deployed from this repo (20 as of Sep 2026). Source: [official limits docs](https://developers.cloudflare.com/workers/platform/limits/) (checked 2026-09-23).
+All Workers in this repo run on the Cloudflare Workers **free plan**. Limits are **per account** and shared by every Worker deployed from this repo (21 as of Sep 2026). Source: [official limits docs](https://developers.cloudflare.com/workers/platform/limits/) (checked 2026-09-23).
 
 | Limit | Free plan | Impact on this fleet |
 |---|---|---|

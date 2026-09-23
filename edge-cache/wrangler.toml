@@ -1,0 +1,7 @@
+name = "formatho-edge-cache"
+main = "src/index.js"
+compatibility_date = "2026-08-01"
+
+routes = [
+  { pattern = "formatho.com/*", zone_name = "formatho.com" }
+]

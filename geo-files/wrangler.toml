@@ -1,0 +1,9 @@
+name = "formatho-geo-files"
+main = "src/index.js"
+compatibility_date = "2026-08-01"
+workers_dev = false
+
+routes = [
+  { pattern = "formatho.com/robots.txt", zone_id = "98b11f67d74b12147062ab7363e1e645" },
+  { pattern = "formatho.com/llms.txt", zone_id = "98b11f67d74b12147062ab7363e1e645" },
+]

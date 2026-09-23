@@ -22,6 +22,7 @@ const TOOLS = [
   ['JSON to CSV Converter', 'JSON arrays → CSV with RFC 4180 escaping & custom delimiters.', 'https://json-to-csv-formatho.filesformatho.workers.dev/', 'https://formatho.com/json-to-csv'],
   ['Regex Tester', 'Test regular expressions — matches, capture & named groups, indices as JSON.', 'https://regex-tester-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/regex-tester'],
   ['Color Converter', 'HEX ⇄ RGB ⇄ HSL ⇄ HSV/CMYK + WCAG luminance in one call.', 'https://color-converter-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/color-converter'],
+  ['Diff Checker', 'Compare two texts line by line — Myers diff, unified hunks, ignore-whitespace.', 'https://diff-checker-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/diff'],
 ];
 
 const SELF = 'https://formatho-tools.filesformatho.workers.dev';
@@ -42,7 +43,7 @@ function htmlPage() {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Formatho Tools — Free Privacy-First Developer APIs</title>
-<meta name="description" content="Directory of 20 free, privacy-first developer tool APIs: JSON, CSV, Base64, regex, color, URL & HTML entity encoders, hashes, UUID, passwords, timestamps, JWT and more. Zero tracking.">
+<meta name="description" content="Directory of 21 free, privacy-first developer tool APIs: JSON, CSV, Base64, regex, color, diff checker, URL & HTML entity encoders, hashes, UUID, passwords, timestamps, JWT and more. Zero tracking.">
 <link rel="canonical" href="${SELF}/">
 <style>
 :root { color-scheme: light dark; }
