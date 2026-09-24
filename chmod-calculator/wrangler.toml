@@ -1,0 +1,4 @@
+# chmod-calculator-formatho
+name = "chmod-calculator-formatho"
+main = "src/index.js"
+compatibility_date = "2026-08-01"

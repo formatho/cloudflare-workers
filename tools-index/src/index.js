@@ -26,6 +26,8 @@ const TOOLS = [
   ['Number Base Converter', 'Binary, octal, decimal, hex & any base 2-36 — BigInt-safe.', 'https://base-converter-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/integer-base-converter'],
   ['Roman Numeral Converter', 'Numbers ⇄ Roman numerals, strict canonical validation.', 'https://roman-numeral-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/roman-numeral-converter'],
   ['IPv4 Subnet Calculator', 'CIDR math: netmask, broadcast, host range, class & privacy flags.', 'https://subnet-calculator-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/ipv4-subnet-calculator'],
+  ['XML Formatter', 'Pretty-print, minify & validate XML with error line/column.', 'https://xml-formatter-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/xml-formatter'],
+  ['chmod Calculator', '755 ⇄ rwxr-xr-x both ways, setuid/setgid/sticky, plain English.', 'https://chmod-calculator-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/chmod-calculator'],
 ];
 
 const SELF = 'https://formatho-tools.filesformatho.workers.dev';
