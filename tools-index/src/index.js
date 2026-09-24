@@ -23,6 +23,9 @@ const TOOLS = [
   ['Regex Tester', 'Test regular expressions — matches, capture & named groups, indices as JSON.', 'https://regex-tester-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/regex-tester'],
   ['Color Converter', 'HEX ⇄ RGB ⇄ HSL ⇄ HSV/CMYK + WCAG luminance in one call.', 'https://color-converter-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/color-converter'],
   ['Diff Checker', 'Compare two texts line by line — Myers diff, unified hunks, ignore-whitespace.', 'https://diff-checker-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/diff'],
+  ['Number Base Converter', 'Binary, octal, decimal, hex & any base 2-36 — BigInt-safe.', 'https://base-converter-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/integer-base-converter'],
+  ['Roman Numeral Converter', 'Numbers ⇄ Roman numerals, strict canonical validation.', 'https://roman-numeral-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/roman-numeral-converter'],
+  ['IPv4 Subnet Calculator', 'CIDR math: netmask, broadcast, host range, class & privacy flags.', 'https://subnet-calculator-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/ipv4-subnet-calculator'],
 ];
 
 const SELF = 'https://formatho-tools.filesformatho.workers.dev';

@@ -29,8 +29,11 @@ Free, fast, zero-tracking developer tool APIs running on [Cloudflare Workers](ht
 | Regex Tester | https://regex-tester-formatho.filesformatho.workers.dev | `?pattern=%5Cd%2B&text=a1b22` |
 | Color Converter | https://color-converter-formatho.filesformatho.workers.dev | `?color=%23ff6600` |
 | Diff Checker | https://diff-checker-formatho.filesformatho.workers.dev | `?a=old%20text&b=new%20text` or POST `{"a":...,"b":...}` |
+| Number Base Converter | https://base-converter-formatho.filesformatho.workers.dev | `?value=255&from=10&to=36` |
+| Roman Numeral Converter | https://roman-numeral-formatho.filesformatho.workers.dev | `?number=2026` or `?roman=MMXXVI` |
+| IPv4 Subnet Calculator | https://subnet-calculator-formatho.filesformatho.workers.dev | `?cidr=192.168.1.10/24` or `?ip=…&mask=…` |
 
-Directory of all 21: https://formatho-tools.filesformatho.workers.dev
+Directory of all 24: https://formatho-tools.filesformatho.workers.dev
 
 Each worker lives in its own directory with its own `wrangler.toml` and README with full usage docs.
 
@@ -45,7 +48,7 @@ Requires a Cloudflare account (`wrangler login`). Free tier works fine.
 
 ## Free plan limits (Cloudflare)
 
-All Workers in this repo run on the Cloudflare Workers **free plan**. Limits are **per account** and shared by every Worker deployed from this repo (21 as of Sep 2026). Source: [official limits docs](https://developers.cloudflare.com/workers/platform/limits/) (checked 2026-09-23).
+All Workers in this repo run on the Cloudflare Workers **free plan**. Limits are **per account** and shared by every Worker deployed from this repo (24 as of Sep 2026). Source: [official limits docs](https://developers.cloudflare.com/workers/platform/limits/) (checked 2026-09-24).
 
 | Limit | Free plan | Impact on this fleet |
 |---|---|---|
