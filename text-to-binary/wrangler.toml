@@ -1,0 +1,4 @@
+# text-to-binary-formatho
+name = "text-to-binary-formatho"
+main = "src/index.js"
+compatibility_date = "2026-08-01"

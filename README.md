@@ -34,8 +34,11 @@ Free, fast, zero-tracking developer tool APIs running on [Cloudflare Workers](ht
 | IPv4 Subnet Calculator | https://subnet-calculator-formatho.filesformatho.workers.dev | `?cidr=192.168.1.10/24` or `?ip=…&mask=…` |
 | XML Formatter | https://xml-formatter-formatho.filesformatho.workers.dev | `?xml=<doc>&mode=pretty\|minify&indent=2` (POST for ≤256KB) |
 | chmod Calculator | https://chmod-calculator-formatho.filesformatho.workers.dev | `?chmod=755` or `?chmod=rwxr-xr-x` (also 4-digit/ls-style) |
+| HMAC Generator | https://hmac-generator-formatho.filesformatho.workers.dev | `?data=hello&key=secret&alg=SHA-256` or POST |
+| URL Parser | https://url-parser-formatho.filesformatho.workers.dev | `?url=https%3A%2F%2Fexample.com%2Fp%3Fq%3D1` |
+| Text ⇄ Binary Converter | https://text-to-binary-formatho.filesformatho.workers.dev | `?text=hello` or `?binary=01101000…` |
 
-Directory of all 26: https://formatho-tools.filesformatho.workers.dev
+Directory of all 29: https://formatho-tools.filesformatho.workers.dev
 
 Each worker lives in its own directory with its own `wrangler.toml` and README with full usage docs.
 
@@ -50,7 +53,7 @@ Requires a Cloudflare account (`wrangler login`). Free tier works fine.
 
 ## Free plan limits (Cloudflare)
 
-All Workers in this repo run on the Cloudflare Workers **free plan**. Limits are **per account** and shared by every Worker deployed from this repo (26 as of Sep 2026). Source: [official limits docs](https://developers.cloudflare.com/workers/platform/limits/) (checked 2026-09-24).
+All Workers in this repo run on the Cloudflare Workers **free plan**. Limits are **per account** and shared by every Worker deployed from this repo (29 as of Sep 2026). Source: [official limits docs](https://developers.cloudflare.com/workers/platform/limits/) (checked 2026-09-24).
 
 | Limit | Free plan | Impact on this fleet |
 |---|---|---|

@@ -28,6 +28,9 @@ const TOOLS = [
   ['IPv4 Subnet Calculator', 'CIDR math: netmask, broadcast, host range, class & privacy flags.', 'https://subnet-calculator-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/ipv4-subnet-calculator'],
   ['XML Formatter', 'Pretty-print, minify & validate XML with error line/column.', 'https://xml-formatter-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/xml-formatter'],
   ['chmod Calculator', '755 ⇄ rwxr-xr-x both ways, setuid/setgid/sticky, plain English.', 'https://chmod-calculator-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/chmod-calculator'],
+  ['HMAC Generator', 'HMAC signatures: SHA-1/256/384/512, hex or Base64.', 'https://hmac-generator-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/hmac-generator'],
+  ['URL Parser', 'Any URL → protocol, host, port, path, query params, hash as JSON.', 'https://url-parser-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/url-parser'],
+  ['Text ⇄ Binary Converter', 'Text → UTF-8 binary/hex/codepoints and back, Unicode-safe.', 'https://text-to-binary-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/text-to-binary'],
 ];
 
 const SELF = 'https://formatho-tools.filesformatho.workers.dev';
@@ -48,7 +51,7 @@ function htmlPage() {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Formatho Tools — Free Privacy-First Developer APIs</title>
-<meta name="description" content="Directory of 21 free, privacy-first developer tool APIs: JSON, CSV, Base64, regex, color, diff checker, URL & HTML entity encoders, hashes, UUID, passwords, timestamps, JWT and more. Zero tracking.">
+<meta name="description" content="Directory of 29 free, privacy-first developer tool APIs: JSON, CSV, Base64, regex, color, diff checker, URL & HTML entity encoders, hashes, HMAC, UUID, passwords, timestamps, JWT and more. Zero tracking.">
 <link rel="canonical" href="${SELF}/">
 <style>
 :root { color-scheme: light dark; }
