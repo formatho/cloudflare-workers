@@ -33,6 +33,9 @@ const TOOLS = [
   ['Text ⇄ Binary Converter', 'Text → UTF-8 binary/hex/codepoints and back, Unicode-safe.', 'https://text-to-binary-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/text-to-binary'],
   ['JSON ⇄ YAML Converter', 'JSON → YAML and YAML → JSON, block scalars & flow style, clean 400s.', 'https://json-yaml-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/json-yaml'],
   ['TOTP Code Generator', 'RFC 6238/4226 codes: SHA-1/256/512, 6–8 digits, otpauth:// URLs.', 'https://totp-generator-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/otp-code-generator'],
+  ['Percentage Calculator', 'X% of Y, X is what % of Y, and % increase/decrease.', 'https://percentage-calculator-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/percentage-calculator'],
+  ['Text Statistics', 'Words, characters, sentences, paragraphs, reading time, top words.', 'https://text-statistics-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/text-statistics'],
+  ['Temperature Converter', 'Celsius ⇄ Fahrenheit ⇄ Kelvin ⇄ Rankine, absolute-zero checks.', 'https://temperature-converter-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/temperature-converter'],
 ];
 
 const SELF = 'https://formatho-tools.filesformatho.workers.dev';
@@ -53,7 +56,7 @@ function htmlPage() {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Formatho Tools — Free Privacy-First Developer APIs</title>
-<meta name="description" content="Directory of 31 free, privacy-first developer tool APIs: JSON, CSV, YAML, Base64, regex, color, diff checker, URL & HTML entity encoders, hashes, HMAC, TOTP, UUID, passwords, timestamps, JWT and more. Zero tracking.">
+<meta name="description" content="Directory of 34 free, privacy-first tool APIs: JSON, CSV, YAML, regex, diff checker, hashes, HMAC, TOTP, UUID, passwords, percentage calculator, word counter, temperature converter and more. Zero tracking.">
 <link rel="canonical" href="${SELF}/">
 <style>
 :root { color-scheme: light dark; }
