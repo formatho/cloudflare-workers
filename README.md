@@ -37,8 +37,10 @@ Free, fast, zero-tracking developer tool APIs running on [Cloudflare Workers](ht
 | HMAC Generator | https://hmac-generator-formatho.filesformatho.workers.dev | `?data=hello&key=secret&alg=SHA-256` or POST |
 | URL Parser | https://url-parser-formatho.filesformatho.workers.dev | `?url=https%3A%2F%2Fexample.com%2Fp%3Fq%3D1` |
 | Text ⇄ Binary Converter | https://text-to-binary-formatho.filesformatho.workers.dev | `?text=hello` or `?binary=01101000…` |
+| JSON ⇄ YAML Converter | https://json-yaml-formatho.filesformatho.workers.dev | `?json=%7B%22a%22%3A1%7D` or `?yaml=a%3A%201`, or POST (auto-detect) |
+| TOTP Code Generator | https://totp-generator-formatho.filesformatho.workers.dev | `?secret=JBSWY3DPEHPK3PXP&digits=6`, or `?url=otpauth://…` |
 
-Directory of all 29: https://formatho-tools.filesformatho.workers.dev
+Directory of all 31: https://formatho-tools.filesformatho.workers.dev
 
 Each worker lives in its own directory with its own `wrangler.toml` and README with full usage docs.
 
@@ -53,7 +55,7 @@ Requires a Cloudflare account (`wrangler login`). Free tier works fine.
 
 ## Free plan limits (Cloudflare)
 
-All Workers in this repo run on the Cloudflare Workers **free plan**. Limits are **per account** and shared by every Worker deployed from this repo (29 as of Sep 2026). Source: [official limits docs](https://developers.cloudflare.com/workers/platform/limits/) (checked 2026-09-24).
+All Workers in this repo run on the Cloudflare Workers **free plan**. Limits are **per account** and shared by every Worker deployed from this repo (31 as of Sep 2026). Source: [official limits docs](https://developers.cloudflare.com/workers/platform/limits/) (checked 2026-09-24).
 
 | Limit | Free plan | Impact on this fleet |
 |---|---|---|
