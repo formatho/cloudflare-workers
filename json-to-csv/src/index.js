@@ -6,7 +6,7 @@ const JSON_HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'X-Privacy-Policy': 'Zero tracking, zero data collection',
 };
-const FULL_TOOL = 'https://formatho.com/json-to-csv';
+const FULL_TOOL = 'https://formatho.com/tools/json-csv';
 const HOST = 'https://json-to-csv-formatho.filesformatho.workers.dev';
 
 function csvEscape(value, delim) {
@@ -109,7 +109,7 @@ curl -X POST -H "Content-Type: application/json" \\
 <p>Arrays of objects (keys become the header row, union of all keys in order) and arrays of arrays. Values containing <strong>commas, quotes or newlines</strong> are escaped per <strong>RFC 4180</strong> (<code>"</code> → <code>""</code>, wrapped in quotes). Semicolon and tab delimiters supported for Excel locales.</p>
 
 <h2>Full browser tool</h2>
-<p>Prefer a UI? Use the complete client-side version — your data never even leaves your browser: <a href="https://formatho.com/json-to-csv">JSON to CSV Converter on formatho.com</a>.</p>
+<p>Prefer a UI? Use the complete client-side version — your data never even leaves your browser: <a href="https://formatho.com/tools/json-csv">JSON to CSV Converter on formatho.com</a>.</p>
 
 <h2>All Formatho edge APIs</h2>
 <p>Browse every free Formatho Worker tool on the <a href="https://formatho-tools.filesformatho.workers.dev/">Formatho Tools index</a>.</p>

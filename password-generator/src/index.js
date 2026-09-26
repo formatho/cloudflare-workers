@@ -6,7 +6,7 @@ const JSON_HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'X-Privacy-Policy': 'Zero tracking, zero data collection',
 };
-const FULL_TOOL = 'https://formatho.com/password-generator';
+const FULL_TOOL = 'https://formatho.com/tools/password-generator';
 
 const SETS = {
   lowercase: 'abcdefghijklmnopqrstuvwxyz',
@@ -160,7 +160,7 @@ curl &quot;https://password-generator-formatho.filesformatho.workers.dev/api?len
 </div>
 
 <h2>Full browser tool</h2>
-<p>Prefer a UI? Use the complete client-side version — passwords are generated locally in your browser and never touch any server: <a href="https://formatho.com/password-generator">Password Generator on formatho.com</a>.</p>
+<p>Prefer a UI? Use the complete client-side version — passwords are generated locally in your browser and never touch any server: <a href="https://formatho.com/tools/password-generator">Password Generator on formatho.com</a>.</p>
 
 <h2>All Formatho edge APIs</h2>
 <p>Browse every free Formatho Worker tool on the <a href="https://formatho-tools.filesformatho.workers.dev/">Formatho Tools index</a>.</p>

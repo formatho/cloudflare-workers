@@ -55,7 +55,7 @@ footer { margin-top: 2.5rem; border-top: 1px solid #8884; padding-top: 1rem; fon
 </div>
 
 <h2>Full browser tool</h2>
-<p>Prefer a UI? Use the complete client-side version — your data never even leaves your browser: <a href="https://formatho.com/json-formatter">JSON Formatter Online on formatho.com</a>.</p>
+<p>Prefer a UI? Use the complete client-side version — your data never even leaves your browser: <a href="https://formatho.com/tools/json-viewer">JSON Formatter Online on formatho.com</a>.</p>
 
 <h2>All Formatho edge APIs</h2>
 <p>Browse every free Formatho Worker tool on the <a href="https://formatho-tools.filesformatho.workers.dev/">Formatho Tools index</a>.</p>
@@ -91,7 +91,7 @@ try {
       error: 'Missing JSON data',
       usage: '?json={"key":"value"}&indent=2',
       privacy: 'Zero tracking, zero data collection',
-      full_tool: 'https://formatho.com/json-formatter',
+      full_tool: 'https://formatho.com/tools/json-viewer',
     }, null, 2), { headers: JSON_HEADERS });
   }
 
@@ -105,7 +105,7 @@ try {
   return new Response(JSON.stringify({
     error: error.message,
     privacy: 'Zero tracking, zero data collection',
-    full_tool: 'https://formatho.com/json-formatter',
+    full_tool: 'https://formatho.com/tools/json-viewer',
   }, null, 2), { status: 400, headers: JSON_HEADERS });
 }
 }

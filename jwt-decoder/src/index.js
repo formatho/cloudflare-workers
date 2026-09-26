@@ -8,7 +8,7 @@ const JSON_HEADERS = {
   'X-Privacy-Policy': 'Zero tracking, zero data collection',
 };
 const HOST = 'https://jwt-decoder-formatho.filesformatho.workers.dev';
-const FULL_TOOL = 'https://formatho.com/jwt';
+const FULL_TOOL = 'https://formatho.com/tools/jwt';
 
 const LANDING_HTML = `<!DOCTYPE html>
 <html lang="en">

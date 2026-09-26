@@ -6,7 +6,7 @@ const JSON_HEADERS = {
   'X-Privacy-Policy': 'Zero tracking, zero data collection',
 };
 const HOST = 'https://case-converter-formatho.filesformatho.workers.dev';
-const FULL_TOOL = 'https://formatho.com/case-converter';
+const FULL_TOOL = 'https://formatho.com/tools/case-converter';
 
 const LANDING_HTML = `<!DOCTYPE html>
 <html lang="en">

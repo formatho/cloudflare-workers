@@ -6,7 +6,7 @@ const JSON_HEADERS = {
   'X-Privacy-Policy': 'Zero tracking, zero data collection',
 };
 const HOST = 'https://lorem-ipsum-formatho.filesformatho.workers.dev';
-const FULL_TOOL = 'https://formatho.com/lorem';
+const FULL_TOOL = 'https://formatho.com/tools/lorem';
 
 const LANDING_HTML = `<!DOCTYPE html>
 <html lang="en">

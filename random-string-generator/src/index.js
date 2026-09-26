@@ -7,7 +7,7 @@ const JSON_HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'X-Privacy-Policy': 'Zero tracking, zero data collection',
 };
-const FULL_TOOL = 'https://formatho.com/random-string-generator';
+const FULL_TOOL = 'https://formatho.com/tools/token-generator';
 
 const CHARSETS = {
   numeric: '0123456789',
@@ -64,7 +64,7 @@ footer { margin-top: 2.5rem; border-top: 1px solid #8884; padding-top: 1rem; fon
 </div>
 
 <h2>Full browser tool</h2>
-<p>Prefer a UI? Use the complete client-side version — your data never even leaves your browser: <a href="https://formatho.com/random-string-generator">Random String Generator Online on formatho.com</a>.</p>
+<p>Prefer a UI? Use the complete client-side version — your data never even leaves your browser: <a href="https://formatho.com/tools/token-generator">Random String Generator Online on formatho.com</a>.</p>
 
 <h2>All Formatho edge APIs</h2>
 <p>Browse every free Formatho Worker tool on the <a href="https://formatho-tools.filesformatho.workers.dev/">Formatho Tools index</a>.</p>

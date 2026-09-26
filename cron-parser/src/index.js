@@ -6,7 +6,7 @@ const JSON_HEADERS = {
   'X-Privacy-Policy': 'Zero tracking, zero data collection',
 };
 const HOST = 'https://cron-parser-formatho.filesformatho.workers.dev';
-const FULL_TOOL = 'https://formatho.com/crontab-generator';
+const FULL_TOOL = 'https://formatho.com/tools/crontab-generator';
 
 const LANDING_HTML = `<!DOCTYPE html>
 <html lang="en">

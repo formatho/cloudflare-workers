@@ -7,7 +7,7 @@ const JSON_HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'X-Privacy-Policy': 'Zero tracking, zero data collection',
 };
-const FULL_TOOL = 'https://formatho.com/hash-generator';
+const FULL_TOOL = 'https://formatho.com/tools/hash-text';
 const ALGORITHMS = ['MD5', 'SHA-1', 'SHA-256', 'SHA-512'];
 
 const K = Array.from({ length: 64 }, (_, i) => Math.floor(Math.abs(Math.sin(i + 1)) * 4294967296));
@@ -105,7 +105,7 @@ footer { margin-top: 2.5rem; border-top: 1px solid #8884; padding-top: 1rem; fon
 </div>
 
 <h2>Full browser tool</h2>
-<p>Prefer a UI? Use the complete client-side version — your data never even leaves your browser: <a href="https://formatho.com/hash-generator">Hash Generator Online on formatho.com</a>.</p>
+<p>Prefer a UI? Use the complete client-side version — your data never even leaves your browser: <a href="https://formatho.com/tools/hash-text">Hash Generator Online on formatho.com</a>.</p>
 
 <h2>All Formatho edge APIs</h2>
 <p>Browse every free Formatho Worker tool on the <a href="https://formatho-tools.filesformatho.workers.dev/">Formatho Tools index</a>.</p>

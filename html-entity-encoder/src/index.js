@@ -6,7 +6,7 @@ const JSON_HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'X-Privacy-Policy': 'Zero tracking, zero data collection',
 };
-const FULL_TOOL = 'https://formatho.com/html-entity-encoder';
+const FULL_TOOL = 'https://formatho.com/tools/html-entities';
 
 const NAMED_ENTITIES = {
   amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ',
@@ -111,7 +111,7 @@ curl &quot;https://html-entity-encoder-formatho.filesformatho.workers.dev/api?te
 <p>Entity encoding prevents broken markup and <strong>XSS injection</strong> when user-supplied text is embedded in HTML: <code>&lt;</code> becomes <code>&amp;lt;</code>, <code>&amp;</code> becomes <code>&amp;amp;</code>, quotes become <code>&amp;quot;</code> / <code>&amp;#39;</code>. Decoding reverses named (<code>&amp;copy;</code>), decimal (<code>&amp;#169;</code>) and hex (<code>&amp;#xA9;</code>) references, Unicode-aware.</p>
 
 <h2>Full browser tool</h2>
-<p>Prefer a UI? Use the complete client-side version — your data never even leaves your browser: <a href="https://formatho.com/html-entity-encoder">HTML Entity Encoder on formatho.com</a>.</p>
+<p>Prefer a UI? Use the complete client-side version — your data never even leaves your browser: <a href="https://formatho.com/tools/html-entities">HTML Entity Encoder on formatho.com</a>.</p>
 
 <h2>All Formatho edge APIs</h2>
 <p>Browse every free Formatho Worker tool on the <a href="https://formatho-tools.filesformatho.workers.dev/">Formatho Tools index</a>.</p>

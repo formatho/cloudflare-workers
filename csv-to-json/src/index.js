@@ -6,7 +6,7 @@ const JSON_HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'X-Privacy-Policy': 'Zero tracking, zero data collection',
 };
-const FULL_TOOL = 'https://formatho.com/csv-to-json';
+const FULL_TOOL = 'https://formatho.com/tools/json-csv';
 const HOST = 'https://csv-to-json-formatho.filesformatho.workers.dev';
 
 function parseCsv(text, delimiter = ',') {
@@ -136,7 +136,7 @@ curl -X POST --data-binary @data.csv \\
 <p>Quoted fields with embedded <strong>commas and newlines</strong>, escaped double quotes (<code>""</code>), CRLF line endings, custom delimiters (semicolon, tab), and automatic typing — numbers, <code>true</code>/<code>false</code> and <code>null</code> become native JSON types.</p>
 
 <h2>Full browser tool</h2>
-<p>Prefer a UI? Use the complete client-side version — your data never even leaves your browser: <a href="https://formatho.com/csv-to-json">CSV to JSON Converter on formatho.com</a>.</p>
+<p>Prefer a UI? Use the complete client-side version — your data never even leaves your browser: <a href="https://formatho.com/tools/json-csv">CSV to JSON Converter on formatho.com</a>.</p>
 
 <h2>All Formatho edge APIs</h2>
 <p>Browse every free Formatho Worker tool on the <a href="https://formatho-tools.filesformatho.workers.dev/">Formatho Tools index</a>.</p>
