@@ -36,6 +36,8 @@ const TOOLS = [
   ['Percentage Calculator', 'X% of Y, X is what % of Y, and % increase/decrease.', 'https://percentage-calculator-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/percentage-calculator'],
   ['Text Statistics', 'Words, characters, sentences, paragraphs, reading time, top words.', 'https://text-statistics-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/text-statistics'],
   ['Temperature Converter', 'Celsius ⇄ Fahrenheit ⇄ Kelvin ⇄ Rankine, absolute-zero checks.', 'https://temperature-converter-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/temperature-converter'],
+  ['ULID Generator', 'Sortable 26-char ULIDs — bulk up to 100, monotonic mode, decode & validate.', 'https://ulid-generator-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/ulid-generator'],
+  ['IBAN Validator', 'ISO 13616 validation: structure, country lengths, mod-97 checksum + formatting.', 'https://iban-validator-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/iban-validator'],
 ];
 
 const SELF = 'https://formatho-tools.filesformatho.workers.dev';
@@ -56,7 +58,7 @@ function htmlPage() {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Formatho Tools — Free Privacy-First Developer APIs</title>
-<meta name="description" content="Directory of 34 free, privacy-first tool APIs: JSON, CSV, YAML, regex, diff checker, hashes, HMAC, TOTP, UUID, passwords, percentage calculator, word counter, temperature converter and more. Zero tracking.">
+<meta name="description" content="Directory of 36 free, privacy-first tool APIs: JSON, CSV, YAML, regex, diff checker, hashes, HMAC, TOTP, UUID, ULID, passwords, IBAN validator, percentage calculator, word counter, temperature converter and more. Zero tracking.">
 <link rel="canonical" href="${SELF}/">
 <style>
 :root { color-scheme: light dark; }
