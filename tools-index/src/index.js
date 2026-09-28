@@ -38,6 +38,8 @@ const TOOLS = [
   ['Temperature Converter', 'Celsius ⇄ Fahrenheit ⇄ Kelvin ⇄ Rankine, absolute-zero checks.', 'https://temperature-converter-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/temperature-converter'],
   ['ULID Generator', 'Sortable 26-char ULIDs — bulk up to 100, monotonic mode, decode & validate.', 'https://ulid-generator-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/ulid-generator'],
   ['IBAN Validator', 'ISO 13616 validation: structure, country lengths, mod-97 checksum + formatting.', 'https://iban-validator-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/iban-validator'],
+  ['HTTP Status Codes', 'Any code 100-599: reason phrase, category, meaning, spec reference; class lists.', 'https://http-status-codes-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/http-status-codes'],
+  ['Meta Tag Generator', 'SEO + Open Graph + Twitter meta tags from one call, with length warnings.', 'https://meta-tag-generator-formatho.filesformatho.workers.dev/', 'https://formatho.com/tools/meta-tag-generator'],
 ];
 
 const SELF = 'https://formatho-tools.filesformatho.workers.dev';
@@ -58,7 +60,7 @@ function htmlPage() {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Formatho Tools — Free Privacy-First Developer APIs</title>
-<meta name="description" content="Directory of 36 free, privacy-first tool APIs: JSON, CSV, YAML, regex, diff checker, hashes, HMAC, TOTP, UUID, ULID, passwords, IBAN validator, percentage calculator, word counter, temperature converter and more. Zero tracking.">
+<meta name="description" content="Directory of 38 free, privacy-first tool APIs: JSON, CSV, YAML, regex, diff checker, hashes, HMAC, TOTP, UUID, ULID, passwords, IBAN validator, HTTP status codes, meta tag generator and more. Zero tracking.">
 <link rel="canonical" href="${SELF}/">
 <style>
 :root { color-scheme: light dark; }

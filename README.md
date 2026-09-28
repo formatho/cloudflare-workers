@@ -44,8 +44,10 @@ Free, fast, zero-tracking developer tool APIs running on [Cloudflare Workers](ht
 | Temperature Converter | https://temperature-converter-formatho.filesformatho.workers.dev | `?value=100&from=c&to=f` (c/f/k/r) |
 | ULID Generator | https://ulid-generator-formatho.filesformatho.workers.dev | `?count=5`, `?monotonic=true`, `?ulid=01ARZ3…` (decode) |
 | IBAN Validator | https://iban-validator-formatho.filesformatho.workers.dev | `?iban=GB82WEST12345698765432`, or POST raw IBAN |
+| HTTP Status Codes | https://http-status-codes-formatho.filesformatho.workers.dev | `?code=404`, `?class=4xx`, `?all=true` |
+| Meta Tag Generator | https://meta-tag-generator-formatho.filesformatho.workers.dev | `?title=...&description=...&og_image=...` |
 
-Directory of all 36: https://formatho-tools.filesformatho.workers.dev
+Directory of all 38: https://formatho-tools.filesformatho.workers.dev
 
 Each worker lives in its own directory with its own `wrangler.toml` and README with full usage docs.
 
@@ -60,7 +62,7 @@ Requires a Cloudflare account (`wrangler login`). Free tier works fine.
 
 ## Free plan limits (Cloudflare)
 
-All Workers in this repo run on the Cloudflare Workers **free plan**. Limits are **per account** and shared by every Worker deployed from this repo (36 as of Sep 2026). Source: [official limits docs](https://developers.cloudflare.com/workers/platform/limits/) (checked 2026-09-24).
+All Workers in this repo run on the Cloudflare Workers **free plan**. Limits are **per account** and shared by every Worker deployed from this repo (38 as of Sep 2026). Source: [official limits docs](https://developers.cloudflare.com/workers/platform/limits/) (checked 2026-09-24).
 
 | Limit | Free plan | Impact on this fleet |
 |---|---|---|
