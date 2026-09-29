@@ -2,7 +2,9 @@
 # fleet-health.sh — live health + drift check for the Formatho worker fleet.
 #
 # Source of truth for "advertised fleet": worker URLs listed in tools-index/src/index.js.
-# Live checks per worker: GET / (200 + <title>), GET /sitemap.xml (200), GET /api (< 500).
+# Live checks per worker: GET / (200 + <title>), GET /sitemap.xml (200), GET /api (< 500),
+#   and every formatho.com backlink on the landing page resolves 200 after redirects
+#   (guards the 2026-09-26 drift class: stale root-slug URLs 404ing after the /tools/* move).
 # Drift checks: local wrangler.toml worker names vs advertised URLs (both directions).
 # Exit 0 = all green; exit 1 = any live failure or drift mismatch.
 #
@@ -30,15 +32,27 @@ check_host() {
   landing_title=$(grep -c '<title>' /tmp/fh-body.$$ 2>/dev/null || true)
   sitemap_code=$(curl -s --max-time "$t" -o /dev/null -w '%{http_code}' "$base/sitemap.xml")
   api_code=$(curl -s --max-time "$t" -o /dev/null -w '%{http_code}' "$base/api")
+  # Backlink check: landing must link formatho.com and every target must resolve 200.
+  local bl bl_total bl_ok bl_detail u code
+  bl=$(grep -oE 'https://formatho\.com[/A-Za-z0-9._-]*' /tmp/fh-body.$$ 2>/dev/null | sed -e 's/[.,;]+$//' -e 's#/*$##' | sort -u)
+  bl_total=$(printf '%s\n' "$bl" | grep -c . || true)
+  bl_ok=0; bl_detail=""
+  while IFS= read -r u; do
+    [ -z "$u" ] && continue
+    code=$(curl -s -L --max-time "$t" -o /dev/null -w '%{http_code}' "$u/")
+    if [ "$code" = "200" ]; then bl_ok=$((bl_ok+1)); else bl_detail="${bl_detail} ${u}:${code}"; fi
+  done <<< "$bl"
   rm -f /tmp/fh-body.$$
   local ok=1
   [ "$landing_code" = "200" ] && [ "$landing_title" -ge 1 ] || ok=0
   [ "$sitemap_code" = "200" ] || ok=0
   [ "$api_code" -lt 500 ] 2>/dev/null || ok=0
+  [ "${bl_total:-0}" -ge 1 ] && [ "$bl_ok" = "$bl_total" ] || ok=0
   if [ "$ok" = "1" ]; then
-    row="OK    $base  (landing ${landing_code}/title, sitemap ${sitemap_code}, api ${api_code})"
+    row="OK    $base  (landing ${landing_code}/title, sitemap ${sitemap_code}, api ${api_code}, backlinks ${bl_ok}/${bl_total})"
   else
-    row="FAIL  $base  (landing ${landing_code}/title:${landing_title}, sitemap ${sitemap_code}, api ${api_code})"
+    [ "${bl_total:-0}" -ge 1 ] || bl_detail=" no-formatho-backlink"
+    row="FAIL  $base  (landing ${landing_code}/title:${landing_title}, sitemap ${sitemap_code}, api ${api_code}, backlinks ${bl_ok}/${bl_total}:${bl_detail})"
   fi
   echo "$row"
 }
