@@ -73,6 +73,243 @@ article p { margin: .25rem 0; }
 a { color: #06c; }
 footer { margin-top: 2rem; color: #888; font-size: .85rem; }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Formatho Tools — Free Privacy-First Developer APIs",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "JSON Formatter",
+      "url": "https://json-formatter-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Base64 Encoder/Decoder",
+      "url": "https://base64-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "URL Encoder/Decoder",
+      "url": "https://url-encoder-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "MD5 Generator",
+      "url": "https://md5-generator-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "name": "UUID Generator",
+      "url": "https://uuid-generator-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 6,
+      "name": "SHA-256 Generator",
+      "url": "https://sha256-generator-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 7,
+      "name": "Random String Generator",
+      "url": "https://random-string-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 8,
+      "name": "Timestamp Converter",
+      "url": "https://timestamp-converter-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 9,
+      "name": "Slug Generator",
+      "url": "https://slug-generator-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 10,
+      "name": "Hash Generator",
+      "url": "https://hash-generator-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 11,
+      "name": "JWT Decoder",
+      "url": "https://jwt-decoder-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 12,
+      "name": "Cron Expression Explainer",
+      "url": "https://cron-parser-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 13,
+      "name": "Case Converter",
+      "url": "https://case-converter-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 14,
+      "name": "Lorem Ipsum Generator",
+      "url": "https://lorem-ipsum-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 15,
+      "name": "HTML Entity Encoder/Decoder",
+      "url": "https://html-entity-encoder-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 16,
+      "name": "Password Generator",
+      "url": "https://password-generator-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 17,
+      "name": "CSV to JSON Converter",
+      "url": "https://csv-to-json-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 18,
+      "name": "JSON to CSV Converter",
+      "url": "https://json-to-csv-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 19,
+      "name": "Regex Tester",
+      "url": "https://regex-tester-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 20,
+      "name": "Color Converter",
+      "url": "https://color-converter-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 21,
+      "name": "Diff Checker",
+      "url": "https://diff-checker-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 22,
+      "name": "Number Base Converter",
+      "url": "https://base-converter-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 23,
+      "name": "Roman Numeral Converter",
+      "url": "https://roman-numeral-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 24,
+      "name": "IPv4 Subnet Calculator",
+      "url": "https://subnet-calculator-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 25,
+      "name": "XML Formatter",
+      "url": "https://xml-formatter-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 26,
+      "name": "chmod Calculator",
+      "url": "https://chmod-calculator-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 27,
+      "name": "HMAC Generator",
+      "url": "https://hmac-generator-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 28,
+      "name": "URL Parser",
+      "url": "https://url-parser-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 29,
+      "name": "Text ⇄ Binary Converter",
+      "url": "https://text-to-binary-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 30,
+      "name": "JSON ⇄ YAML Converter",
+      "url": "https://json-yaml-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 31,
+      "name": "TOTP Code Generator",
+      "url": "https://totp-generator-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 32,
+      "name": "Percentage Calculator",
+      "url": "https://percentage-calculator-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 33,
+      "name": "Text Statistics",
+      "url": "https://text-statistics-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 34,
+      "name": "Temperature Converter",
+      "url": "https://temperature-converter-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 35,
+      "name": "ULID Generator",
+      "url": "https://ulid-generator-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 36,
+      "name": "IBAN Validator",
+      "url": "https://iban-validator-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 37,
+      "name": "HTTP Status Codes",
+      "url": "https://http-status-codes-formatho.filesformatho.workers.dev"
+    },
+    {
+      "@type": "ListItem",
+      "position": 38,
+      "name": "Meta Tag Generator",
+      "url": "https://meta-tag-generator-formatho.filesformatho.workers.dev"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <h1>Formatho Tools — Free Privacy-First APIs</h1>

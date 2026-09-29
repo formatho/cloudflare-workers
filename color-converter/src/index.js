@@ -206,6 +206,34 @@ table { border-collapse: collapse; width: 100%; font-size: .9rem; }
 th, td { border: 1px solid #8884; padding: .35rem .6rem; text-align: left; }
 .swatch { display: inline-block; width: 1em; height: 1em; border-radius: 3px; background: #f60; vertical-align: -0.1em; border: 1px solid #8884; }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Color Converter Online — HEX to RGB to HSL — Free & Private API",
+  "url": "https://color-converter-formatho.filesformatho.workers.dev/",
+  "description": "Convert colors instantly — HEX to RGB, RGB to HSL, HSV, CMYK and luminance in one call. Free privacy-first edge API, zero tracking. Full color tool on formatho.com.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "featureList": [
+    "Free edge API",
+    "Zero tracking",
+    "No data collection",
+    "No signup required"
+  ],
+  "publisher": {
+    "@type": "Organization",
+    "name": "Formatho",
+    "url": "https://formatho.com"
+  }
+}
+</script>
 </head>
 <body>
 <header>

@@ -32,6 +32,34 @@ a { color: #06c; }
 .privacy { background: #0a51; border: 1px solid #0a83; border-radius: 8px; padding: .8rem 1rem; }
 footer { margin-top: 2.5rem; border-top: 1px solid #8884; padding-top: 1rem; font-size: .85rem; color: #888; }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "JWT Decoder Online — Free & Private | Formatho",
+  "url": "https://jwt-decoder-formatho.filesformatho.workers.dev/",
+  "description": "Decode JWT header and payload claims instantly at the edge — free, privacy-first, zero tracking. Full browser-side JWT debugger on formatho.com.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "featureList": [
+    "Free edge API",
+    "Zero tracking",
+    "No data collection",
+    "No signup required"
+  ],
+  "publisher": {
+    "@type": "Organization",
+    "name": "Formatho",
+    "url": "https://formatho.com"
+  }
+}
+</script>
 </head>
 <body>
 <header>

@@ -255,6 +255,34 @@ footer { margin-top: 2.5rem; border-top: 1px solid #8884; padding-top: 1rem; fon
 table { border-collapse: collapse; width: 100%; font-size: .9rem; }
 th, td { border: 1px solid #8884; padding: .35rem .6rem; text-align: left; }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Diff Checker Online — Compare Two Texts & Code — Free & Private API",
+  "url": "https://diff-checker-formatho.filesformatho.workers.dev/",
+  "description": "Free diff checker API: compare two texts or code snippets line by line. Myers diff algorithm, unified-diff hunks, ignore-whitespace option. Zero tracking, runs on the edge.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "featureList": [
+    "Free edge API",
+    "Zero tracking",
+    "No data collection",
+    "No signup required"
+  ],
+  "publisher": {
+    "@type": "Organization",
+    "name": "Formatho",
+    "url": "https://formatho.com"
+  }
+}
+</script>
 </head>
 <body>
 <header>
