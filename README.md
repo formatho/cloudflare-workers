@@ -47,7 +47,7 @@ Free, fast, zero-tracking developer tool APIs running on [Cloudflare Workers](ht
 | HTTP Status Codes | https://http-status-codes-formatho.filesformatho.workers.dev | `?code=404`, `?class=4xx`, `?all=true` |
 | Meta Tag Generator | https://meta-tag-generator-formatho.filesformatho.workers.dev | `?title=...&description=...&og_image=...` |
 
-Directory of all 38: https://formatho-tools.filesformatho.workers.dev
+Directory of all 38 (with instant search `/` + category filter): https://formatho-tools.filesformatho.workers.dev
 
 Each worker lives in its own directory with its own `wrangler.toml` and README with full usage docs.
 

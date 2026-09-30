@@ -44,9 +44,53 @@ const TOOLS = [
 
 const SELF = 'https://formatho-tools.filesformatho.workers.dev';
 
+// Category per tool (CRO: filterable directory). Additive; missing names fall back to 'Other'.
+const CATEGORY_BY_NAME = {
+  'JSON Formatter': 'Data Formats',
+  'CSV to JSON Converter': 'Data Formats',
+  'JSON to CSV Converter': 'Data Formats',
+  'XML Formatter': 'Data Formats',
+  'JSON ⇄ YAML Converter': 'Data Formats',
+  'Base64 Encoder/Decoder': 'Encoders & Decoders',
+  'URL Encoder/Decoder': 'Encoders & Decoders',
+  'HTML Entity Encoder/Decoder': 'Encoders & Decoders',
+  'Text ⇄ Binary Converter': 'Encoders & Decoders',
+  'MD5 Generator': 'Hashing & Crypto',
+  'SHA-256 Generator': 'Hashing & Crypto',
+  'Hash Generator': 'Hashing & Crypto',
+  'HMAC Generator': 'Hashing & Crypto',
+  'JWT Decoder': 'Auth & Tokens',
+  'TOTP Code Generator': 'Auth & Tokens',
+  'UUID Generator': 'Generators',
+  'Random String Generator': 'Generators',
+  'Password Generator': 'Generators',
+  'ULID Generator': 'Generators',
+  'Lorem Ipsum Generator': 'Generators',
+  'Slug Generator': 'Text & Regex',
+  'Case Converter': 'Text & Regex',
+  'Regex Tester': 'Text & Regex',
+  'Diff Checker': 'Text & Regex',
+  'Text Statistics': 'Text & Regex',
+  'Timestamp Converter': 'Converters',
+  'Number Base Converter': 'Converters',
+  'Roman Numeral Converter': 'Converters',
+  'Temperature Converter': 'Converters',
+  'Color Converter': 'Web & SEO',
+  'Meta Tag Generator': 'Web & SEO',
+  'IPv4 Subnet Calculator': 'Network & DevOps',
+  'URL Parser': 'Network & DevOps',
+  'Cron Expression Explainer': 'Network & DevOps',
+  'chmod Calculator': 'Network & DevOps',
+  'HTTP Status Codes': 'Network & DevOps',
+  'Percentage Calculator': 'Calculators & Validators',
+  'IBAN Validator': 'Calculators & Validators',
+};
+const cat = (name) => CATEGORY_BY_NAME[name] || 'Other';
+
 function htmlPage() {
   const items = TOOLS.map(([name, desc, url, tool]) => `
-  <article>
+  <article data-cat="${cat(name)}">
+    <p class="cat">${cat(name)}</p>
     <h2><a href="${url}" rel="noopener">${name}</a></h2>
     <p>${desc}</p>
     <p class="links">API: <a href="${url}" rel="noopener">${url.replace('https://', '')}</a> · Browser tool: <a href="${tool}" rel="noopener">formatho.com${new URL(tool).pathname}</a></p>
@@ -71,6 +115,13 @@ article h2 { margin: 0 0 .25rem; font-size: 1.15rem; }
 article p { margin: .25rem 0; }
 .links { font-size: .85rem; color: #888; }
 a { color: #06c; }
+.cat { font-size: .7rem; text-transform: uppercase; letter-spacing: .06em; color: #888; margin: 0 0 .1rem; }
+#filter { margin: 1.25rem 0 .25rem; }
+#q { width: 100%; box-sizing: border-box; padding: .5rem .75rem; font: inherit; border: 1px solid #8886; border-radius: 8px; background: transparent; color: inherit; }
+#chips { display: flex; flex-wrap: wrap; gap: .4rem; margin: .6rem 0 .1rem; }
+#chips button { font: inherit; font-size: .8rem; padding: .15rem .6rem; border-radius: 999px; border: 1px solid #8886; background: transparent; color: inherit; cursor: pointer; }
+#chips button.on { background: #06c; border-color: #06c; color: #fff; }
+#count { font-size: .8rem; color: #888; margin: .3rem 0 0; }
 footer { margin-top: 2rem; color: #888; font-size: .85rem; }
 </style>
 <script type="application/ld+json">
@@ -314,12 +365,51 @@ footer { margin-top: 2rem; color: #888; font-size: .85rem; }
 <body>
 <h1>Formatho Tools — Free Privacy-First APIs</h1>
 <p>${TOOLS.length} free developer tool APIs running on Cloudflare's edge. <strong>Zero tracking, zero data collection, zero logging.</strong> Every tool also has a full client-side version on <a href="https://formatho.com">formatho.com</a> where your data never leaves your browser.</p>
+<div id="filter" hidden>
+  <input type="search" id="q" placeholder="Filter ${TOOLS.length} tools… (press /)" aria-label="Filter tools" autocomplete="off">
+  <div id="chips" role="group" aria-label="Filter by category"></div>
+  <p id="count" aria-live="polite"></p>
+</div>
 <section id="limits">
 <h2>Cloudflare free-plan limits</h2>
 <p>These APIs run on the Cloudflare Workers <strong>free plan</strong>. The request quota is <strong>per account</strong> — all Formatho edge APIs above share <strong>100,000 requests/day</strong> (resets 00:00 UTC) with <strong>10 ms CPU</strong> and <strong>128 MB memory</strong> per invocation. If the daily cap is exhausted, Cloudflare returns <a href="https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/error-1027/" rel="noopener">error 1027</a> until the UTC reset; CPU or memory overruns surface as error 1102. For unlimited use, run the browser tools on <a href="https://formatho.com">formatho.com</a> (no server involved) or self-deploy any Worker on your own free account. Full limits: <a href="https://developers.cloudflare.com/workers/platform/limits/" rel="noopener">official Cloudflare docs</a>.</p>
 </section>
 ${items}
 <footer>© <a href="https://formatho.com">formatho.com</a> — privacy-first developer tools · <a href="/sitemap.xml">sitemap.xml</a> · <a href="/api">JSON list</a></footer>
+<script>
+(function(){
+  var box=document.getElementById('filter');
+  var q=document.getElementById('q');
+  var chips=document.getElementById('chips');
+  var count=document.getElementById('count');
+  var arts=[].slice.call(document.querySelectorAll('article[data-cat]'));
+  var cats={};var cur='All';
+  arts.forEach(function(a){var c=a.getAttribute('data-cat');cats[c]=(cats[c]||0)+1;});
+  var names=['All'].concat(Object.keys(cats).sort());
+  names.forEach(function(n){
+    var b=document.createElement('button');
+    b.type='button';b.textContent=n+' ('+(n==='All'?arts.length:cats[n])+')';
+    if(n==='All')b.className='on';
+    b.addEventListener('click',function(){cur=n;[].forEach.call(chips.children,function(x){x.className='';});b.className='on';apply();});
+    chips.appendChild(b);
+  });
+  function apply(){
+    var t=q.value.trim().toLowerCase();var shown=0;
+    arts.forEach(function(a){
+      var ok=(cur==='All'||a.getAttribute('data-cat')===cur)&&(!t||a.textContent.toLowerCase().indexOf(t)>-1);
+      a.style.display=ok?'':'none';if(ok)shown++;
+    });
+    count.textContent=(shown===arts.length)?('Showing all '+arts.length+' tools'):(shown+' of '+arts.length+' tools'+(shown===0?' — try another search':''));
+  }
+  q.addEventListener('input',apply);
+  document.addEventListener('keydown',function(e){
+    var tag=document.activeElement?document.activeElement.tagName:'';
+    if(e.key==='/'&&document.activeElement!==q&&tag!=='INPUT'&&tag!=='TEXTAREA'&&tag!=='SELECT'){e.preventDefault();q.focus();q.select();}
+    if(e.key==='Escape'&&document.activeElement===q){q.value='';cur='All';[].forEach.call(chips.children,function(x,i){x.className=i===0?'on':'';});apply();q.blur();}
+  });
+  box.hidden=false;apply();
+})();
+</script>
 </body>
 </html>`;
 }
@@ -340,7 +430,7 @@ if (url.pathname === '/llms.txt') {
     if (url.pathname === '/api') {
       return new Response(JSON.stringify({
         count: TOOLS.length,
-        tools: TOOLS.map(([name, desc, api, tool]) => ({ name, description: desc, api, browser_tool: tool })),
+        tools: TOOLS.map(([name, desc, api, tool]) => ({ name, description: desc, category: cat(name), api, browser_tool: tool })),
         site: 'https://formatho.com',
         privacy: 'Zero tracking, zero data collection',
         limits: {
