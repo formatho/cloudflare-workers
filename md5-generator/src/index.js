@@ -187,10 +187,15 @@ try {
 }
 }
 
+const LLMS_TXT = "# MD5 Hash Generator Online — Free & Private\n\n> Generate MD5 hashes instantly — free, privacy-first API with zero tracking. For checksums & legacy use. Full browser tool on formatho.com. Runs on Cloudflare's edge: zero tracking, zero data collection, nothing logged. No signup, no cookies.\n\n- [Use this tool]: https://md5-generator-formatho.filesformatho.workers.dev/\n- [JSON API]: https://md5-generator-formatho.filesformatho.workers.dev/api — GET and POST, CORS-enabled\n- [Full browser tool on formatho.com]: https://formatho.com/tools/hash-text\n- [All 38 Formatho edge tools]: https://formatho-tools.filesformatho.workers.dev/\n- [Formatho main site]: https://formatho.com/ — 100+ free client-side developer tools\n";
+
 export default {
   async fetch(request) {
     const url = new URL(request.url);
-    if (url.pathname === '/sitemap.xml') {
+if (url.pathname === '/llms.txt') {
+      return new Response(LLMS_TXT, { headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'public, max-age=86400' } });
+    }
+        if (url.pathname === '/sitemap.xml') {
       return new Response(SITEMAP_XML, { headers: { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=86400' } });
     }
     if (url.pathname === '/api' || url.pathname === '/api/') {

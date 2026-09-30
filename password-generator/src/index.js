@@ -213,10 +213,15 @@ const SITEMAP_XML = `<?xml version="1.0" encoding="UTF-8"?>
 </urlset>
 `;
 
+const LLMS_TXT = "# Password Generator Online — Secure, Free & Private\n\n> Generate cryptographically secure passwords (8–128 chars, custom charsets, bulk up to 100) — free and privacy-first. Nothing is stored, logged or transmitted onward. Runs on Cloudflare's edge: zero tracking, zero data collection, nothing logged. No signup, no cookies.\n\n- [Use this tool]: https://password-generator-formatho.filesformatho.workers.dev/\n- [JSON API]: https://password-generator-formatho.filesformatho.workers.dev/api — GET and POST, CORS-enabled\n- [Full browser tool on formatho.com]: https://formatho.com/tools/password-generator\n- [All 38 Formatho edge tools]: https://formatho-tools.filesformatho.workers.dev/\n- [Formatho main site]: https://formatho.com/ — 100+ free client-side developer tools\n";
+
 export default {
   async fetch(request) {
     const url = new URL(request.url);
-    if (url.pathname === '/sitemap.xml') {
+if (url.pathname === '/llms.txt') {
+      return new Response(LLMS_TXT, { headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'public, max-age=86400' } });
+    }
+        if (url.pathname === '/sitemap.xml') {
       return new Response(SITEMAP_XML, { headers: { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=86400' } });
     }
     if (url.pathname === '/api' || url.pathname === '/api/') {

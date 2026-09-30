@@ -187,10 +187,15 @@ async function api(request) {
   }
 }
 
+const LLMS_TXT = "# HTML Entity Encoder / Decoder Online — Free & Private\n\n> Encode text to HTML entities or decode entity references back to text — free, privacy-first, Unicode-aware. Zero tracking. Full tool on formatho.com. Runs on Cloudflare's edge: zero tracking, zero data collection, nothing logged. No signup, no cookies.\n\n- [Use this tool]: https://html-entity-encoder-formatho.filesformatho.workers.dev/\n- [JSON API]: https://html-entity-encoder-formatho.filesformatho.workers.dev/api — GET and POST, CORS-enabled\n- [Full browser tool on formatho.com]: https://formatho.com/tools/html-entities\n- [All 38 Formatho edge tools]: https://formatho-tools.filesformatho.workers.dev/\n- [Formatho main site]: https://formatho.com/ — 100+ free client-side developer tools\n";
+
 export default {
   async fetch(request) {
     const url = new URL(request.url);
-    if (url.pathname === '/sitemap.xml') {
+if (url.pathname === '/llms.txt') {
+      return new Response(LLMS_TXT, { headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'public, max-age=86400' } });
+    }
+        if (url.pathname === '/sitemap.xml') {
       return new Response(SITEMAP_XML, { headers: { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=86400' } });
     }
     if (url.pathname === '/api' || url.pathname === '/api/') {

@@ -217,11 +217,16 @@ const SITEMAP_XML = `<?xml version="1.0" encoding="UTF-8"?>
   <url><loc>${HOST}/api</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 </urlset>`;
 
+const LLMS_TXT = "# HTTP Status Codes Lookup (Meanings & Fixes) — Free & Private API\n\n> Look up any HTTP status code 100–599: reason phrase, category, meaning and spec reference. Free JSON API with zero tracking. Full reference tool on formatho.com. Runs on Cloudflare's edge: zero tracking, zero data collection, nothing logged. No signup, no cookies.\n\n- [Use this tool]: https://http-status-codes-formatho.filesformatho.workers.dev/\n- [JSON API]: https://http-status-codes-formatho.filesformatho.workers.dev/api — GET and POST, CORS-enabled\n- [Full browser tool on formatho.com]: https://formatho.com/tools/http-status-codes\n- [All 38 Formatho edge tools]: https://formatho-tools.filesformatho.workers.dev/\n- [Formatho main site]: https://formatho.com/ — 100+ free client-side developer tools\n";
+
 export default {
   async fetch(request) {
     const url = new URL(request.url);
     if (url.pathname === '/api') return handleApi(request);
-    if (url.pathname === '/sitemap.xml') return new Response(SITEMAP_XML, { headers: { 'Content-Type': 'application/xml' } });
+if (url.pathname === '/llms.txt') {
+      return new Response(LLMS_TXT, { headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'public, max-age=86400' } });
+    }
+        if (url.pathname === '/sitemap.xml') return new Response(SITEMAP_XML, { headers: { 'Content-Type': 'application/xml' } });
     if (url.pathname === '/') return new Response(LANDING_HTML, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
     return new Response('Not found', { status: 404 });
   },

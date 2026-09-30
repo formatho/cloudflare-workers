@@ -299,10 +299,15 @@ const SITEMAP_XML = `<?xml version="1.0" encoding="UTF-8"?>
 </urlset>
 `;
 
+const LLMS_TXT = "# Color Converter Online — HEX to RGB to HSL — Free & Private API\n\n> Convert colors instantly — HEX to RGB, RGB to HSL, HSV, CMYK and luminance in one call. Free privacy-first edge API, zero tracking. Full color tool on formatho.com. Runs on Cloudflare's edge: zero tracking, zero data collection, nothing logged. No signup, no cookies.\n\n- [Use this tool]: https://color-converter-formatho.filesformatho.workers.dev/\n- [JSON API]: https://color-converter-formatho.filesformatho.workers.dev/api — GET and POST, CORS-enabled\n- [Full browser tool on formatho.com]: https://formatho.com/tools/color-converter\n- [All 38 Formatho edge tools]: https://formatho-tools.filesformatho.workers.dev/\n- [Formatho main site]: https://formatho.com/ — 100+ free client-side developer tools\n";
+
 export default {
   async fetch(request) {
     const url = new URL(request.url);
-    if (url.pathname === '/sitemap.xml') {
+if (url.pathname === '/llms.txt') {
+      return new Response(LLMS_TXT, { headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'public, max-age=86400' } });
+    }
+        if (url.pathname === '/sitemap.xml') {
       return new Response(SITEMAP_XML, { headers: { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=86400' } });
     }
     if (url.pathname === '/api' || url.pathname === '/api/') {

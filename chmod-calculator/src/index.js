@@ -241,6 +241,8 @@ function handleApi(url) {
   }
 }
 
+const LLMS_TXT = "# chmod Calculator Online (755, rwxr-xr-x) — Free & Private\n\n> Convert chmod octal to symbolic (755 ⇄ rwxr-xr-x) and back, with setuid/setgid/sticky bits, per-owner permission breakdown and plain-English explanation — free, zero tracking. Full tool on formatho.com. Runs on Cloudflare's edge: zero tracking, zero data collection, nothing logged. No signup, no cookies.\n\n- [Use this tool]: https://chmod-calculator-formatho.filesformatho.workers.dev/\n- [JSON API]: https://chmod-calculator-formatho.filesformatho.workers.dev/api — GET and POST, CORS-enabled\n- [Full browser tool on formatho.com]: https://formatho.com/tools/chmod-calculator\n- [All 38 Formatho edge tools]: https://formatho-tools.filesformatho.workers.dev/\n- [Formatho main site]: https://formatho.com/ — 100+ free client-side developer tools\n";
+
 export default {
   async fetch(request) {
     const url = new URL(request.url);
@@ -252,7 +254,10 @@ export default {
       }, { headers: JSON_HEADERS });
     }
     if (url.pathname === '/api') return handleApi(url);
-    if (url.pathname === '/sitemap.xml') return new Response(SITEMAP_XML, { headers: { 'Content-Type': 'application/xml' } });
+if (url.pathname === '/llms.txt') {
+      return new Response(LLMS_TXT, { headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'public, max-age=86400' } });
+    }
+        if (url.pathname === '/sitemap.xml') return new Response(SITEMAP_XML, { headers: { 'Content-Type': 'application/xml' } });
     if (url.pathname === '/') return new Response(LANDING_HTML, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
     return new Response('Not found', { status: 404 });
   },

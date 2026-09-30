@@ -220,10 +220,15 @@ async function api(request) {
   }
 }
 
+const LLMS_TXT = "# CSV to JSON Converter Online — Free & Private API\n\n> Convert CSV to JSON instantly — headers, quoted fields, custom delimiters, auto-typing. Free privacy-first edge API, zero tracking. Full tool on formatho.com. Runs on Cloudflare's edge: zero tracking, zero data collection, nothing logged. No signup, no cookies.\n\n- [Use this tool]: https://csv-to-json-formatho.filesformatho.workers.dev/\n- [JSON API]: https://csv-to-json-formatho.filesformatho.workers.dev/api — GET and POST, CORS-enabled\n- [Full browser tool on formatho.com]: https://formatho.com/tools/json-csv\n- [All 38 Formatho edge tools]: https://formatho-tools.filesformatho.workers.dev/\n- [Formatho main site]: https://formatho.com/ — 100+ free client-side developer tools\n";
+
 export default {
   async fetch(request) {
     const url = new URL(request.url);
-    if (url.pathname === '/sitemap.xml') {
+if (url.pathname === '/llms.txt') {
+      return new Response(LLMS_TXT, { headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'public, max-age=86400' } });
+    }
+        if (url.pathname === '/sitemap.xml') {
       return new Response(SITEMAP_XML, { headers: { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=86400' } });
     }
     if (url.pathname === '/api' || url.pathname === '/api/') {

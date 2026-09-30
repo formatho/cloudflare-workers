@@ -117,11 +117,16 @@ function handleApi(request) {
   }, { headers: JSON_HEADERS });
 }
 
+const LLMS_TXT = "# Case Converter Online (camelCase, snake_case, kebab-case) — Free & Private\n\n> Convert text between camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE and more — free, privacy-first API with zero tracking. Full tool on formatho.com. Runs on Cloudflare's edge: zero tracking, zero data collection, nothing logged. No signup, no cookies.\n\n- [Use this tool]: https://case-converter-formatho.filesformatho.workers.dev/\n- [JSON API]: https://case-converter-formatho.filesformatho.workers.dev/api — GET and POST, CORS-enabled\n- [Full browser tool on formatho.com]: https://formatho.com/tools/case-converter\n- [All 38 Formatho edge tools]: https://formatho-tools.filesformatho.workers.dev/\n- [Formatho main site]: https://formatho.com/ — 100+ free client-side developer tools\n";
+
 export default {
   async fetch(request) {
     const url = new URL(request.url);
     if (url.pathname === '/api') return handleApi(request);
-    if (url.pathname === '/sitemap.xml') return new Response(SITEMAP_XML, { headers: { 'Content-Type': 'application/xml' } });
+if (url.pathname === '/llms.txt') {
+      return new Response(LLMS_TXT, { headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'public, max-age=86400' } });
+    }
+        if (url.pathname === '/sitemap.xml') return new Response(SITEMAP_XML, { headers: { 'Content-Type': 'application/xml' } });
     if (url.pathname === '/') return new Response(LANDING_HTML, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
     return new Response('Not found', { status: 404 });
   },

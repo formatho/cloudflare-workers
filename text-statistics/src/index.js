@@ -168,11 +168,16 @@ async function handleApi(request) {
   return respondStats(text, url.searchParams.get('top'));
 }
 
+const LLMS_TXT = "# Text Statistics API (Word & Character Counter) — Free & Private\n\n> Free text statistics API: characters, words, unique words, sentences, paragraphs, lines, reading & speaking time, top words — one call, zero tracking. Full tool on formatho.com. Runs on Cloudflare's edge: zero tracking, zero data collection, nothing logged. No signup, no cookies.\n\n- [Use this tool]: https://text-statistics-formatho.filesformatho.workers.dev/\n- [JSON API]: https://text-statistics-formatho.filesformatho.workers.dev/api — GET and POST, CORS-enabled\n- [Full browser tool on formatho.com]: https://formatho.com/tools/text-statistics\n- [All 38 Formatho edge tools]: https://formatho-tools.filesformatho.workers.dev/\n- [Formatho main site]: https://formatho.com/ — 100+ free client-side developer tools\n";
+
 export default {
   async fetch(request) {
     const url = new URL(request.url);
     if (url.pathname === '/api') return handleApi(request);
-    if (url.pathname === '/sitemap.xml') return new Response(SITEMAP_XML, { headers: { 'Content-Type': 'application/xml' } });
+if (url.pathname === '/llms.txt') {
+      return new Response(LLMS_TXT, { headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'public, max-age=86400' } });
+    }
+        if (url.pathname === '/sitemap.xml') return new Response(SITEMAP_XML, { headers: { 'Content-Type': 'application/xml' } });
     if (url.pathname === '/') return new Response(LANDING_HTML, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
     return new Response('Not found', { status: 404 });
   },
