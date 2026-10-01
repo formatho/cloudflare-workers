@@ -538,6 +538,12 @@ const LLMS_TXT = "# JSON to YAML Converter Online — Free & Private API\n\n> Co
 export default {
   async fetch(request) {
     const url = new URL(request.url);
+    if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': request.headers.get('Access-Control-Request-Headers') || 'Content-Type',
+      'Access-Control-Max-Age': '86400',
+    } });
     if (url.pathname === '/api') {
       if (request.method === 'POST') return handlePost(request);
       if (request.method === 'GET') return handleGet(request);

@@ -150,6 +150,12 @@ const LLMS_TXT = "# Text to Binary Converter Online (and Binary to Text) — Fre
 export default {
   async fetch(request) {
     const url = new URL(request.url);
+    if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': request.headers.get('Access-Control-Request-Headers') || 'Content-Type',
+      'Access-Control-Max-Age': '86400',
+    } });
     if (url.pathname === '/api') return handleApi(request);
 if (url.pathname === '/llms.txt') {
       return new Response(LLMS_TXT, { headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'public, max-age=86400' } });

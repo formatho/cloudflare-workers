@@ -332,6 +332,12 @@ const LLMS_TXT = "# XML Formatter Online (Pretty Print & Minify) — Free & Priv
 export default {
   async fetch(request) {
     const url = new URL(request.url);
+    if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': request.headers.get('Access-Control-Request-Headers') || 'Content-Type',
+      'Access-Control-Max-Age': '86400',
+    } });
     if (url.pathname === '/api' && request.method === 'GET' && !url.searchParams.has('xml') && ![...url.searchParams.keys()].length) {
       return Response.json({
         usage: 'GET /api?xml=<urlencoded xml up to 8KB>  |  POST /api {"xml":"...","mode":"pretty|minify","indent":2}',

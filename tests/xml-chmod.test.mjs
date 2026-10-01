@@ -1,6 +1,6 @@
 // Local smoke tests for xml-formatter + chmod-calculator (pure functions via fetch handler)
-import xmlWorker from '../workers/xml-formatter/src/index.js';
-import chmodWorker from '../workers/chmod-calculator/src/index.js';
+import xmlWorker from '../xml-formatter/src/index.js';
+import chmodWorker from '../chmod-calculator/src/index.js';
 
 let pass = 0, fail = 0;
 async function call(worker, path, init) {
