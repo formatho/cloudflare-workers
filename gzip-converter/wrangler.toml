@@ -1,0 +1,3 @@
+main = "src/index.js"
+name = "gzip-converter-formatho"
+compatibility_date = "2026-08-01"
