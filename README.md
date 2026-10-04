@@ -50,8 +50,10 @@ Free, fast, zero-tracking developer tool APIs running on [Cloudflare Workers](ht
 | Basic Auth Generator | https://basic-auth-generator-formatho.filesformatho.workers.dev | `?user=admin&password=s3cr3t`, `?decode=dXNlcjpwYXNzd29yZA==`, `?header=Basic%20...` |
 | Gzip Converter | https://gzip-converter-formatho.filesformatho.workers.dev | `?text=...`, `?mode=decompress&text=<base64>`, `&encoding=hex` |
 | GTIN Validator | https://gtin-validator-formatho.filesformatho.workers.dev | `?gtin=4006381333931`, `?base=629104150021` (check digit) |
+| User Agent Parser | https://user-agent-parser-formatho.filesformatho.workers.dev | `?ua=Mozilla/5.0...` (omitted → parses request's own UA header) |
+| APY Calculator | https://apy-calculator-formatho.filesformatho.workers.dev | `?apr=5&n=12`, `&n=continuous`, `&principal=10000&years=5` |
 
-Directory of all 42 (with instant search `/` + category filter): https://formatho-tools.filesformatho.workers.dev
+Directory of all 44 (with instant search `/` + category filter): https://formatho-tools.filesformatho.workers.dev
 
 Each worker lives in its own directory with its own `wrangler.toml` and README with full usage docs.
 
@@ -66,7 +68,7 @@ Requires a Cloudflare account (`wrangler login`). Free tier works fine.
 
 ## Free plan limits (Cloudflare)
 
-All Workers in this repo run on the Cloudflare Workers **free plan**. Limits are **per account** and shared by every Worker deployed from this repo (42 as of Oct 2026). Source: [official limits docs](https://developers.cloudflare.com/workers/platform/limits/) (checked 2026-09-24).
+All Workers in this repo run on the Cloudflare Workers **free plan**. Limits are **per account** and shared by every Worker deployed from this repo (44 as of Oct 2026). Source: [official limits docs](https://developers.cloudflare.com/workers/platform/limits/) (checked 2026-09-24).
 
 | Limit | Free plan | Impact on this fleet |
 |---|---|---|
