@@ -52,8 +52,10 @@ Free, fast, zero-tracking developer tool APIs running on [Cloudflare Workers](ht
 | GTIN Validator | https://gtin-validator-formatho.filesformatho.workers.dev | `?gtin=4006381333931`, `?base=629104150021` (check digit) |
 | User Agent Parser | https://user-agent-parser-formatho.filesformatho.workers.dev | `?ua=Mozilla/5.0...` (omitted → parses request's own UA header) |
 | APY Calculator | https://apy-calculator-formatho.filesformatho.workers.dev | `?apr=5&n=12`, `&n=continuous`, `&principal=10000&years=5` |
+| Cookie Analyzer | https://cookie-analyzer-formatho.filesformatho.workers.dev | `?set-cookie=session%3Dabc%3B%20Secure`, `?cookie=a%3D1%3B%20b%3D2` (omitted → request's own Cookie header) |
+| LLM JSON Validator | https://llm-json-validator-formatho.filesformatho.workers.dev | `?json=%7B%27a%27%3A%20None%2C%7D` (auto-repair), `&mode=validate` (strict, error line/col) |
 
-Directory of all 44 (with instant search `/` + category filter): https://formatho-tools.filesformatho.workers.dev
+Directory of all 46 (with instant search `/` + category filter): https://formatho-tools.filesformatho.workers.dev
 
 Each worker lives in its own directory with its own `wrangler.toml` and README with full usage docs.
 
@@ -68,7 +70,7 @@ Requires a Cloudflare account (`wrangler login`). Free tier works fine.
 
 ## Free plan limits (Cloudflare)
 
-All Workers in this repo run on the Cloudflare Workers **free plan**. Limits are **per account** and shared by every Worker deployed from this repo (44 as of Oct 2026). Source: [official limits docs](https://developers.cloudflare.com/workers/platform/limits/) (checked 2026-09-24).
+All Workers in this repo run on the Cloudflare Workers **free plan**. Limits are **per account** and shared by every Worker deployed from this repo (46 as of Oct 2026). Source: [official limits docs](https://developers.cloudflare.com/workers/platform/limits/) (checked 2026-09-24).
 
 | Limit | Free plan | Impact on this fleet |
 |---|---|---|
@@ -79,7 +81,7 @@ All Workers in this repo run on the Cloudflare Workers **free plan**. Limits are
 | Simultaneous outgoing connections | 6 per request | n/a |
 | Worker size | 64 MiB | Each Worker is a few KB |
 | Startup time | 1 second | n/a |
-| Workers per account | 100 | Fleet at 20/100 |
+| Workers per account | 100 | Fleet at 46/100 |
 | Cron triggers | 5 per account | 0 used |
 | Environment variables | 64 per Worker (5 KB each) | Minimal use |
 | Request body | 100 MB (Cloudflare free plan) | Most APIs are GET-query based; keep big payloads in the browser tools |

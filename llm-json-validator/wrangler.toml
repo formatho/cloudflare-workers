@@ -1,0 +1,3 @@
+main = "src/index.js"
+name = "llm-json-validator-formatho"
+compatibility_date = "2026-08-01"
