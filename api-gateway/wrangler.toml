@@ -1,0 +1,63 @@
+name = "api-gateway-formatho"
+main = "src/index.js"
+compatibility_date = "2026-08-01"
+
+# Phase A of the paid-API-tier plan (backlog #1) — pure proxy via service
+# bindings; no auth, no rate limits yet (Phase B/C). Custom domain
+# api.formatho.com + pricing are owner gates (plan §9).
+
+[[services]]
+binding = "TOOL_JSON_FORMAT"
+service = "json-formatter-formatho"
+
+[[services]]
+binding = "TOOL_BASE64"
+service = "base64-formatho"
+
+[[services]]
+binding = "TOOL_URL_ENCODE"
+service = "url-encoder-formatho"
+
+[[services]]
+binding = "TOOL_MD5"
+service = "md5-generator-formatho"
+
+[[services]]
+binding = "TOOL_SHA256"
+service = "sha256-generator-formatho"
+
+[[services]]
+binding = "TOOL_HASH"
+service = "hash-generator-formatho"
+
+[[services]]
+binding = "TOOL_UUID"
+service = "uuid-generator-formatho"
+
+[[services]]
+binding = "TOOL_RANDOM_STRING"
+service = "random-string-formatho"
+
+[[services]]
+binding = "TOOL_SLUG"
+service = "slug-generator-formatho"
+
+[[services]]
+binding = "TOOL_TIMESTAMP"
+service = "timestamp-converter-formatho"
+
+[[services]]
+binding = "TOOL_JWT_DECODE"
+service = "jwt-decoder-formatho"
+
+[[services]]
+binding = "TOOL_CRON_PARSE"
+service = "cron-parser-formatho"
+
+[[services]]
+binding = "TOOL_CASE_CONVERT"
+service = "case-converter-formatho"
+
+[[services]]
+binding = "TOOL_LOREM"
+service = "lorem-ipsum-formatho"
