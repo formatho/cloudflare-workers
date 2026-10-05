@@ -1,6 +1,6 @@
-// Formatho API Gateway — Phase A (pure proxy, plan §7 of PAID-API-TIER-PLAN.md)
+// Formatho API Gateway — Phase A (proxy) + Phase B (anonymous per-IP rate limiting)
 // One prefix /v1/* → service-bound tool workers' /api endpoints.
-// No auth, no rate limits yet (Phase B: anon limits; Phase C: D1 keys).
+// Phase C (D1 API keys + tiered limits) not yet wired; owner gates: plan §9.
 // Privacy: proxies pass through; gateway itself logs nothing, stores nothing.
 
 const HOST = 'https://api-gateway-formatho.filesformatho.workers.dev';
@@ -40,7 +40,12 @@ const directory = () => JSON.stringify({
   name: 'formatho-api',
   version: 'v1',
   status: 'preview',
-  description: 'Free, privacy-first developer tool APIs on Cloudflare\'s edge. No signup required during preview; query params pass through 1:1 to each tool. Zero tracking, zero payload logging.',
+  description: 'Free, privacy-first developer tool APIs on Cloudflare\'s edge. Query params pass through 1:1 to each tool. Anonymous use is rate-limited per IP; API keys with higher limits are coming. Zero tracking, zero payload logging.',
+  rate_limits: {
+    anonymous: `${ANON_LIMIT} requests / ${ANON_PERIOD}s per IP (429 + Retry-After when exceeded)`,
+    keyed: 'higher limits — API keys coming soon',
+    unmetered: 'legacy per-tool *.workers.dev/api URLs',
+  },
   routes: routeList(),
   docs: `${HOST}/`,
 }, null, 2);
@@ -82,7 +87,7 @@ footer { margin-top: 2.5rem; border-top: 1px solid #8884; padding-top: 1rem; fon
   "operatingSystem": "Any",
   "isAccessibleForFree": true,
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "featureList": ["14 tool APIs under /v1", "GET and POST", "CORS-enabled", "Zero tracking", "No payload logging"],
+  "featureList": ["14 tool APIs under /v1", "GET and POST", "CORS-enabled", "Per-IP rate limiting (30/min anonymous)", "Zero tracking", "No payload logging"],
   "publisher": { "@type": "Organization", "name": "Formatho", "url": "https://formatho.com" }
 }
 </script>
@@ -91,10 +96,12 @@ footer { margin-top: 2.5rem; border-top: 1px solid #8884; padding-top: 1rem; fon
 <header>
 <h1>Formatho API</h1>
 <p class="tagline">14 privacy-first developer tool APIs behind one versioned prefix — free during preview, no signup.</p>
-<div class="badges"><span class="badge">/v1</span><span class="badge">GET + POST</span><span class="badge">CORS *</span><span class="badge">Zero tracking</span><span class="badge">Edge (Cloudflare)</span></div>
+<div class="badges"><span class="badge">/v1</span><span class="badge">GET + POST</span><span class="badge">CORS *</span><span class="badge">Zero tracking</span><span class="badge">30 req/min anon</span><span class="badge">Edge (Cloudflare)</span></div>
 </header>
 
 <p>Every endpoint proxies the battle-tested API of a live <a href="https://formatho-tools.filesformatho.workers.dev/">Formatho edge tool</a>. Query parameters pass through 1:1 — the same params each tool documents on its own <code>/api</code> endpoint. The full machine-readable route list is <a href="/v1"><code>GET /v1</code></a>.</p>
+
+<p><strong>Rate limits:</strong> anonymous use is limited to <strong>30 requests per minute per IP</strong>. Exceeded requests get <code>429</code> with a <code>Retry-After</code> header. API keys with higher limits are coming; every legacy per-tool <code>*.workers.dev/api</code> URL stays free and unmetered.</p>
 
 <table>
 <tr><th>Endpoint</th><th>What it does</th><th>Params</th></tr>
@@ -122,7 +129,7 @@ curl -X POST "https://api-gateway-formatho.filesformatho.workers.dev/v1/json-for
 <div class="privacy"><strong>Privacy-first, always.</strong> The gateway logs request <em>counts</em> at the infrastructure level only — never payloads, never keys, never IP-linked history. Every proxied tool runs on Cloudflare Workers with zero data collection. See <a href="https://formatho.com/">formatho.com</a>.</div>
 
 <h2>Roadmap</h2>
-<p><strong>Now (preview):</strong> unmetered free access via <code>/v1/*</code>. <strong>Next:</strong> per-IP anonymous rate limits, then optional API keys with higher limits for automated pipelines. The legacy per-tool <code>*.workers.dev/api</code> URLs stay free and unchanged forever.</p>
+<p><strong>Now (preview):</strong> free access via <code>/v1/*</code>, rate-limited to 30 req/min per IP. <strong>Next:</strong> optional API keys with higher limits for automated pipelines. The legacy per-tool <code>*.workers.dev/api</code> URLs stay free and unmetered forever.</p>
 
 <footer>Formatho — privacy-first developer tools. <a href="https://formatho.com/">Main site</a> · <a href="https://formatho.com/tools/json-viewer">Browser tools</a> · <a href="https://formatho-tools.filesformatho.workers.dev/">All edge tools</a></footer>
 </body>
@@ -136,7 +143,7 @@ const SITEMAP_XML = `<?xml version="1.0" encoding="UTF-8"?>
 
 const LLMS_TXT = `# Formatho API
 
-> One versioned prefix (${HOST}/v1) fronting 14 privacy-first developer tool APIs on Cloudflare's edge. Free during preview, no signup, GET+POST, CORS *. Zero tracking, zero payload logging. Legacy per-tool /api URLs remain free and unchanged.
+> One versioned prefix (${HOST}/v1) fronting 14 privacy-first developer tool APIs on Cloudflare's edge. Free, no signup, GET+POST, CORS *. Anonymous use rate-limited to 30 requests/60s per IP (429 + Retry-After); API keys coming. Zero tracking, zero payload logging. Legacy per-tool /api URLs remain free and unmetered.
 
 - [API directory]: ${HOST}/v1 — machine-readable route list
 ${routeList().map(r => `- [${r.path.replace('/v1/', '')}]: ${HOST}${r.path} — ${r.description}`).join('\n')}
@@ -144,10 +151,28 @@ ${routeList().map(r => `- [${r.path.replace('/v1/', '')}]: ${HOST}${r.path} — 
 - [Formatho main site]: https://formatho.com/ — 100+ free client-side developer tools
 `;
 
-function jsonError(status, code, message) {
+// ---------- Phase B: anonymous rate limiting (per-IP via WAF rate-limit binding) ----------
+const ANON_LIMIT = 30;   // requests — mirrors wrangler.toml [ratelimits.simple]; tuning = edit + redeploy
+const ANON_PERIOD = 60;  // seconds
+
+// Fails OPEN on any binding/limiter problem: this is abuse control, not auth —
+// the API must stay up even if the limiter is missing, misconfigured, or erroring.
+// Live finding 2026-10-05: binding deploys + answers {success:true} but never
+// enforces on this free-plan workers.dev route (117 test reqs, zero 429s).
+// Enforcement is expected to activate on a zone-routed custom domain (owner gate)
+// or plan change — zero code change needed when it does.
+async function anonRateOk(request, env) {
+  const limiter = env.FREE_ANON;
+  if (!limiter || typeof limiter.limit !== 'function') return true;
+  const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+  try { return (await limiter.limit({ key: ip })).success !== false; }
+  catch { return true; }
+}
+
+function jsonError(status, code, message, extra = {}) {
   return new Response(JSON.stringify({ error: { code, message, docs: `${HOST}/v1` } }, null, 2), {
     status,
-    headers: JSON_HEADERS,
+    headers: { ...JSON_HEADERS, ...extra },
   });
 }
 
@@ -165,6 +190,7 @@ async function proxy(request, url, route) {
   const resp = new Response(upstream.body, upstream);
   if (!resp.headers.has('Access-Control-Allow-Origin')) resp.headers.set('Access-Control-Allow-Origin', '*');
   resp.headers.set('X-Formatho-Gateway', 'v1-preview');
+  resp.headers.set('X-RateLimit-Limit', String(ANON_LIMIT)); // remaining is not exposed by the binding
   return resp;
 }
 
@@ -201,6 +227,12 @@ export default {
       const name = path.slice(4);
       const route = ROUTES[name];
       if (!route) return jsonError(404, 'not_found', `Unknown route ${request.method} ${path}. GET /v1 lists all routes.`);
+      // Known routes only: unknown paths 404 above without spending limiter budget.
+      if (!(await anonRateOk(request, env))) {
+        return jsonError(429, 'rate_limited',
+          `Anonymous usage is limited to ${ANON_LIMIT} requests per ${ANON_PERIOD}s per IP. Wait ${ANON_PERIOD}s and retry, or use the legacy per-tool /api URLs (unmetered). API keys with higher limits are coming.`,
+          { 'Retry-After': String(ANON_PERIOD), 'X-RateLimit-Limit': String(ANON_LIMIT) });
+      }
       return proxy(request, url, route);
     }
 

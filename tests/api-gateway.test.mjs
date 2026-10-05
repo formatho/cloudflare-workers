@@ -148,5 +148,76 @@ await t('llms.txt → text/plain, all 14 routes listed', async () => {
   assert.ok(txt.includes('https://formatho.com/'));
 });
 
+// ---------- Phase B: anonymous rate limiting ----------
+function limitedEnv(ok, tracker) {
+  const e = mockEnv();
+  e.FREE_ANON = { limit: async ({ key }) => { if (tracker) tracker.push(key); return { success: ok }; } };
+  return e;
+}
+
+await t('limiter says no → 429 envelope + Retry-After + X-RateLimit-Limit', async () => {
+  const r = await gw.fetch(req('/v1/md5?text=hello', { headers: { 'CF-Connecting-IP': '203.0.113.9' } }), limitedEnv(false));
+  assert.equal(r.status, 429);
+  assert.equal(r.headers.get('Retry-After'), '60');
+  assert.equal(r.headers.get('X-RateLimit-Limit'), '30');
+  assert.equal(r.headers.get('Access-Control-Allow-Origin'), '*');
+  const j = await r.json();
+  assert.equal(j.error.code, 'rate_limited');
+  assert.ok(j.error.message.includes('30 requests per 60s'));
+  assert.ok(j.error.docs.endsWith('/v1'));
+});
+
+await t('limiter says yes → proxied 200 carries X-RateLimit-Limit, keyed by CF-Connecting-IP', async () => {
+  const keys = [];
+  const r = await gw.fetch(req('/v1/md5?text=hello', { headers: { 'CF-Connecting-IP': '198.51.100.7' } }), limitedEnv(true, keys));
+  assert.equal(r.status, 200);
+  assert.equal(r.headers.get('X-RateLimit-Limit'), '30');
+  assert.deepEqual(keys, ['198.51.100.7']);
+});
+
+await t('unknown /v1 route → 404 without spending limiter budget', async () => {
+  const keys = [];
+  const r = await gw.fetch(req('/v1/nope', { headers: { 'CF-Connecting-IP': '203.0.113.9' } }), limitedEnv(false, keys));
+  assert.equal(r.status, 404);
+  assert.equal(keys.length, 0);
+});
+
+await t('non-/v1/* surfaces are never rate-limited (/, /v1, sitemap, llms.txt, OPTIONS)', async () => {
+  const keys = [];
+  const e = limitedEnv(false, keys); // would refuse everything if consulted
+  for (const [p, init] of [['/', {}], ['/v1', {}], ['/sitemap.xml', {}], ['/llms.txt', {}], ['/v1/md5', { method: 'OPTIONS' }]]) {
+    const r = await gw.fetch(req(p, init), e);
+    assert.ok([200, 204].includes(r.status), `${p} → ${r.status}`);
+  }
+  assert.equal(keys.length, 0);
+});
+
+await t('missing FREE_ANON binding (pre-Phase-B deploy / local dev) → fails open', async () => {
+  const r = await gw.fetch(req('/v1/md5?text=hello'), env); // env has no FREE_ANON
+  assert.equal(r.status, 200);
+});
+
+await t('limiter throws → fails open, 200 (availability > strictness)', async () => {
+  const e = mockEnv();
+  e.FREE_ANON = { limit: async () => { throw new Error('waf unavailable'); } };
+  const r = await gw.fetch(req('/v1/md5?text=hello'), e);
+  assert.equal(r.status, 200);
+});
+
+await t('wrangler.toml rate-limit config ⇄ code constants parity (drift guard)', async () => {
+  const toml = readFileSync(new URL('../api-gateway/wrangler.toml', import.meta.url), 'utf8');
+  const limit = toml.match(/limit\s*=\s*(\d+)/)[1];
+  const period = toml.match(/period\s*=\s*(\d+)/)[1];
+  const src = readFileSync(new URL('../api-gateway/src/index.js', import.meta.url), 'utf8');
+  assert.ok(src.includes(`const ANON_LIMIT = ${limit};`), 'src ANON_LIMIT must match toml limit');
+  assert.ok(src.includes(`const ANON_PERIOD = ${period};`), 'src ANON_PERIOD must match toml period');
+});
+
+await t('/v1 directory documents live rate limits', async () => {
+  const j = await (await gw.fetch(req('/v1'), mockEnv())).json();
+  assert.ok(j.rate_limits.anonymous.includes('30 requests / 60s'));
+  assert.ok(j.rate_limits.unmetered.includes('workers.dev/api'));
+});
+
 console.log(`\napi-gateway: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

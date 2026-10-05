@@ -61,3 +61,15 @@ service = "case-converter-formatho"
 [[services]]
 binding = "TOOL_LOREM"
 service = "lorem-ipsum-formatho"
+
+# Phase B — anonymous per-IP rate limiting (plan §4). Keyed by CF-Connecting-IP
+# in code. Limit values are placeholders pending owner pricing decisions
+# (plan §9 gate 1); tuning = edit here + redeploy, no code change. Note: the
+# simple limiter counts per Cloudflare colo (documented CF caveat) — fine for
+# abuse control at current traffic. Handler fails open if the binding errors.
+[[ratelimits]]
+name = "FREE_ANON"
+namespace_id = "1001"
+  [ratelimits.simple]
+  limit = 30
+  period = 60
