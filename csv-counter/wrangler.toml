@@ -1,0 +1,3 @@
+main = "src/index.js"
+name = "csv-counter-formatho"
+compatibility_date = "2026-08-01"
