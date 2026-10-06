@@ -52,3 +52,12 @@ change, with **zero code change** (limit tuning = wrangler.toml + redeploy).
 
 - Excluded from tools-index/fleet count deliberately (API surface, not a tool).
 - Service bindings are internal subrequests — no public hop, free plan OK.
+
+## Phase C — D1 hashed-key management (2026-10-06)
+
+- **DB:** `formatho-api-db` (D1 free tier, id `0cabb605-…`, schema in `schema.sql`): `accounts`, `keys` (SHA-256 **hash-only**, raw never stored), `usage_daily` rollups.
+- **Key path:** `x-api-key` → SHA-256 → 1 indexed point read → tier (`free` 60/min / `paid` 600/min via `FREE_KEY`/`PAID_KEY` bindings). Invalid/revoked → 401. **Fail-open:** D1 outage degrades keyed callers to anonymous limits (never 401s a possibly-valid holder; nobody gains elevated access). Same free-plan non-enforcement caveat as Phase B applies to the new bindings on workers.dev routes.
+- **Admin:** `POST /admin/keys {email,tier,label}` + `x-admin-secret`. Returns the raw key (`fmt_live_…`) exactly once. **503 until the owner sets `ADMIN_SECRET`** (`wrangler secret put ADMIN_SECRET`) — launch gate held; e2e-tested 10-06 with a temporary secret (issue → paid-200 → revoke → 401 → secret deleted → 503).
+- **Usage:** batched `usage_daily` writes (every 25 counted requests via `waitUntil`) — advisory counts, never payloads.
+- **Tests:** `node tests/api-gateway.test.mjs` — 31 (21 A/B + 10 C).
+- Owner gates unchanged: api.formatho.com DNS, pricing/limit numbers, Stripe, Workers Paid (plan §9).
