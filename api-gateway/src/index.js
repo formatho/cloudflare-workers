@@ -1,7 +1,10 @@
 // Formatho API Gateway — Phase A (proxy) + Phase B (anonymous per-IP rate limiting)
+//                        + Phase C (D1 hashed API keys + tiered limits + admin issuance)
 // One prefix /v1/* → service-bound tool workers' /api endpoints.
-// Phase C (D1 API keys + tiered limits) not yet wired; owner gates: plan §9.
-// Privacy: proxies pass through; gateway itself logs nothing, stores nothing.
+// Owner gates still held: plan §9 (api.formatho.com DNS, pricing numbers, Stripe,
+// Workers Paid). ADMIN_SECRET is unset by default → /admin/keys returns 503.
+// Privacy: proxies pass through; gateway itself logs nothing; Phase C stores only
+// hashed keys + aggregate request counts — never payloads.
 
 const HOST = 'https://api-gateway-formatho.filesformatho.workers.dev';
 
@@ -169,6 +172,110 @@ async function anonRateOk(request, env) {
   catch { return true; }
 }
 
+// ---------- Phase C: D1 hashed-key management (plan §3) ----------
+const KEY_TIERS = {
+  free: { limit: 60, limiter: 'FREE_KEY' },   // placeholder — owner gate (plan §9)
+  paid: { limit: 600, limiter: 'PAID_KEY' },  // placeholder — owner gate (plan §9)
+};
+
+async function hashHex(prefix, s) {
+  const d = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(prefix + s));
+  return [...new Uint8Array(d)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+const hashKey = (raw) => hashHex('key:', raw); // hex(SHA-256(raw)) — raw never stored
+
+function randomB64url(bytes) {
+  const b = new Uint8Array(bytes);
+  crypto.getRandomValues(b);
+  return btoa(String.fromCharCode(...b)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+function generateKey() {
+  return { raw: 'fmt_live_' + randomB64url(32), id: 'k_' + randomB64url(6).toLowerCase().slice(0, 8) };
+}
+
+// 1 indexed point read per keyed request (plan §3). Distinguishes outcomes:
+// invalid/revoked key → 401; D1 unavailable → dbDown:true so the caller degrades
+// to the anonymous path (fail-open: key holders keep service at anon limits,
+// nobody gains elevated access during an outage).
+async function lookupKey(env, raw) {
+  try {
+    const row = await env.DB.prepare('SELECT id, tier, status FROM keys WHERE key_hash = ?')
+      .bind(await hashKey(raw)).first();
+    return { key: row || null, dbDown: false };
+  } catch { return { key: null, dbDown: true }; }
+}
+
+// Same fail-open philosophy as Phase B: limiter problems must not take the API down.
+async function keyRateOk(identity, env, limiterName) {
+  const limiter = env[limiterName];
+  if (!limiter || typeof limiter.limit !== 'function') return true;
+  try { return (await limiter.limit({ key: identity })).success !== false; }
+  catch { return true; }
+}
+
+// Usage rollups: batched writes (every 25 counted requests), never per-request.
+// Losing a batch to an error is acceptable — counts are advisory, not billing (yet).
+const usageBuf = new Map();
+let usageCount = 0;
+function bumpUsage(env, ctx, keyId, route) {
+  const day = new Date().toISOString().slice(0, 10);
+  const k = `${day}|${keyId}|${route}`;
+  usageBuf.set(k, (usageBuf.get(k) || 0) + 1);
+  if (++usageCount % 25 === 0) ctx.waitUntil(flushUsage(env));
+}
+async function flushUsage(env) {
+  if (!usageBuf.size) return;
+  const entries = [...usageBuf.entries()];
+  usageBuf.clear();
+  try {
+    await env.DB.batch(entries.map(([k, n]) => {
+      const [day, keyId, route] = k.split('|');
+      return env.DB.prepare(
+        'INSERT INTO usage_daily (day, key_id, route, requests) VALUES (?1, ?2, ?3, ?4) ' +
+        'ON CONFLICT (day, key_id, route) DO UPDATE SET requests = requests + ?4')
+        .bind(day, keyId, route, n);
+    }));
+  } catch { /* advisory only */ }
+}
+
+// Admin issuance — POST /admin/keys {email, tier, label} + x-admin-secret header.
+// 503 until the owner sets ADMIN_SECRET (launch gate held by design).
+async function handleAdmin(request, env) {
+  if (request.method !== 'POST') return jsonError(405, 'method_not_allowed', 'POST only.');
+  if (!env.ADMIN_SECRET) return jsonError(503, 'admin_not_configured',
+    'ADMIN_SECRET is not set. The owner configures it at launch (wrangler secret put ADMIN_SECRET).');
+  const supplied = request.headers.get('x-admin-secret') || '';
+  const [a, b] = await Promise.all([hashHex('admin:', env.ADMIN_SECRET), hashHex('admin:', supplied)]);
+  if (a !== b) return jsonError(403, 'forbidden', 'Invalid admin secret.');
+
+  let body;
+  try { body = await request.json(); } catch { return jsonError(400, 'bad_request', 'JSON body required.'); }
+  const email = String(body.email || '').trim().toLowerCase();
+  const tier = body.tier === 'paid' ? 'paid' : 'free';
+  const label = body.label ? String(body.label).slice(0, 64) : null;
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return jsonError(400, 'bad_request', 'A valid email is required.');
+
+  const now = Date.now();
+  let account;
+  try {
+    account = await env.DB.prepare('SELECT id FROM accounts WHERE email = ?').bind(email).first();
+    if (!account) {
+      account = { id: 'a_' + randomB64url(8).toLowerCase() };
+      await env.DB.prepare('INSERT INTO accounts (id, email, created_at) VALUES (?1, ?2, ?3)')
+        .bind(account.id, email, now).run();
+    }
+    const { raw, id } = generateKey();
+    await env.DB.prepare(
+      'INSERT INTO keys (id, account_id, key_hash, label, tier, status, created_at) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)')
+      .bind(id, account.id, await hashKey(raw), label, tier, 'active', now).run();
+    // Raw key returned exactly once, never stored, never logged.
+    return new Response(JSON.stringify({ key: raw, key_id: id, account_id: account.id, tier, label }, null, 2),
+      { status: 201, headers: JSON_HEADERS });
+  } catch (e) {
+    return jsonError(503, 'd1_unavailable', 'Key store unavailable — try again shortly.');
+  }
+}
+
 function jsonError(status, code, message, extra = {}) {
   return new Response(JSON.stringify({ error: { code, message, docs: `${HOST}/v1` } }, null, 2), {
     status,
@@ -195,7 +302,7 @@ async function proxy(request, url, route) {
 }
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     request.env_binding = env; // service bindings live on env; stash for proxy()
     const url = new URL(request.url);
     const path = url.pathname.replace(/\/+$/, '') || '/';
@@ -223,11 +330,36 @@ export default {
     if (path === '/sitemap.xml') return new Response(SITEMAP_XML, { headers: { 'Content-Type': 'application/xml', 'Cache-Control': 'public, max-age=300' } });
     if (path === '/llms.txt') return new Response(LLMS_TXT, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
 
+    if (path === '/admin/keys') return handleAdmin(request, env);
+
     if (path.startsWith('/v1/')) {
       const name = path.slice(4);
       const route = ROUTES[name];
       if (!route) return jsonError(404, 'not_found', `Unknown route ${request.method} ${path}. GET /v1 lists all routes.`);
       // Known routes only: unknown paths 404 above without spending limiter budget.
+
+      const rawKey = request.headers.get('x-api-key');
+      if (rawKey) {
+        const { key, dbDown } = await lookupKey(env, rawKey);
+        if (dbDown) {
+          // D1 outage: degrade to anonymous limits — keep serving, never 401 a
+          // possibly-valid key holder for an infra problem (fail-open, plan §4).
+        } else if (!key || key.status !== 'active') {
+          return jsonError(401, 'invalid_api_key', 'x-api-key is invalid or revoked. Get a key: https://formatho.com');
+        } else {
+          const t = KEY_TIERS[key.tier] || KEY_TIERS.free;
+          if (!(await keyRateOk(key.id, env, t.limiter)))
+            return jsonError(429, 'rate_limited',
+              `This key (${key.tier} tier) is limited to ${t.limit} requests per 60s. Retry shortly or upgrade: https://formatho.com`,
+              { 'Retry-After': '60', 'X-RateLimit-Limit': String(t.limit), 'X-RateLimit-Scope': key.tier });
+          const resp = await proxy(request, url, route);
+          resp.headers.set('X-RateLimit-Scope', key.tier);
+          resp.headers.set('X-RateLimit-Limit', String(t.limit));
+          if (ctx) bumpUsage(env, ctx, key.id, name);
+          return resp;
+        }
+      }
+
       if (!(await anonRateOk(request, env))) {
         return jsonError(429, 'rate_limited',
           `Anonymous usage is limited to ${ANON_LIMIT} requests per ${ANON_PERIOD}s per IP. Wait ${ANON_PERIOD}s and retry, or use the legacy per-tool /api URLs (unmetered). API keys with higher limits are coming.`,

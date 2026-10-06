@@ -73,3 +73,26 @@ namespace_id = "1001"
   [ratelimits.simple]
   limit = 30
   period = 60
+
+# Phase C — keyed tiers (plan §4): FREE_KEY/PAID_KEY share the anon fail-open
+# philosophy; same live caveat as FREE_ANON on free-plan workers.dev routes.
+# Limits are placeholders pending owner pricing decisions (plan §9 gate 1).
+[[ratelimits]]
+name = "FREE_KEY"
+namespace_id = "1003"
+  [ratelimits.simple]
+  limit = 60
+  period = 60
+
+[[ratelimits]]
+name = "PAID_KEY"
+namespace_id = "1002"
+  [ratelimits.simple]
+  limit = 600
+  period = 60
+
+# Key store: hashed keys + aggregate usage counts only (plan §3). Free tier.
+[[d1_databases]]
+binding = "DB"
+database_name = "formatho-api-db"
+database_id = "0cabb605-7972-4073-b80e-bbf7f65960fe"

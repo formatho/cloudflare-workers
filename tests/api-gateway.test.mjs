@@ -50,7 +50,8 @@ await t('GET /api aliases the directory (for landing href consistency)', async (
 
 await t('wrangler.toml bindings ⇄ ROUTES table parity (no drift)', async () => {
   const toml = readFileSync(new URL('../api-gateway/wrangler.toml', import.meta.url), 'utf8');
-  const bindings = [...toml.matchAll(/binding = "(\w+)"/g)].map(m => m[1]);
+  // Service bindings only — Phase C added non-service bindings (D1 "DB").
+  const bindings = [...toml.matchAll(/binding = "(\w+)"\n\s*service/g)].map(m => m[1]);
   const services = [...toml.matchAll(/service = "([\w-]+)"/g)].map(m => m[1]);
   assert.equal(bindings.length, ROUTE_COUNT);
   assert.equal(services.length, ROUTE_COUNT);
@@ -217,6 +218,102 @@ await t('/v1 directory documents live rate limits', async () => {
   const j = await (await gw.fetch(req('/v1'), mockEnv())).json();
   assert.ok(j.rate_limits.anonymous.includes('30 requests / 60s'));
   assert.ok(j.rate_limits.unmetered.includes('workers.dev/api'));
+});
+
+
+// ---------- Phase C: D1 hashed keys (plan §3) ----------
+function mockDB(rows = {}, recorder = []) {
+  return {
+    prepare(sql) {
+      return {
+        bind(...args) {
+          recorder.push([sql.trim().slice(0, 40), args]);
+          return {
+            first: async () => rows.lookup ?? null,
+            run: async () => ({}),
+          };
+        },
+        first: async () => rows.lookup ?? null,
+        run: async () => (recorder.push([sql.trim().slice(0, 40), []]), {}),
+      };
+    },
+    batch: async (stmts) => { recorder.push(['batch', [stmts.length]]); },
+  };
+}
+const gwEnv = (extra = {}) => ({ ...mockEnv(), FREE_ANON: { async limit() { return { success: true }; } }, ...extra });
+
+await t('invalid x-api-key -> 401 invalid_api_key', async () => {
+  const res = await gw.fetch(req('/v1/json-format', { headers: { 'x-api-key': 'fmt_live_bogus' } }), gwEnv({ DB: mockDB() }));
+  assert.equal(res.status, 401);
+  const j = await res.json();
+  assert.equal(j.error.code, 'invalid_api_key');
+});
+
+await t('revoked key -> 401', async () => {
+  const DB = mockDB({ lookup: { id: 'k_x', tier: 'free', status: 'revoked' } });
+  const res = await gw.fetch(req('/v1/json-format', { headers: { 'x-api-key': 'fmt_live_revoked' } }), gwEnv({ DB }));
+  assert.equal(res.status, 401);
+});
+
+await t('active key -> proxied + X-RateLimit-Scope + tier limit', async () => {
+  const DB = mockDB({ lookup: { id: 'k_test', tier: 'paid', status: 'active' } });
+  const limiter = { calls: [], async limit(o) { this.calls.push(o.key); return { success: true }; } };
+  const res = await gw.fetch(req('/v1/json-format?json=%7B%7D', { headers: { 'x-api-key': 'fmt_live_paid' } }), gwEnv({ DB, PAID_KEY: limiter }));
+  assert.equal(res.status, 200);
+  assert.equal(res.headers.get('X-RateLimit-Scope'), 'paid');
+  assert.equal(res.headers.get('X-RateLimit-Limit'), '600');
+  assert.deepEqual(limiter.calls, ['k_test']); // keyed by key id, not IP
+});
+
+await t('keyed 429 when limiter blocks', async () => {
+  const DB = mockDB({ lookup: { id: 'k_test', tier: 'paid', status: 'active' } });
+  const res = await gw.fetch(req('/v1/json-format', { headers: { 'x-api-key': 'fmt_live_paid' } }),
+    gwEnv({ DB, PAID_KEY: { async limit() { return { success: false }; } } }));
+  assert.equal(res.status, 429);
+  assert.equal(res.headers.get('Retry-After'), '60');
+});
+
+await t('D1 unavailable + key -> fail-open to proxy (not 500)', async () => {
+  const res = await gw.fetch(req('/v1/json-format', { headers: { 'x-api-key': 'fmt_live_any' } }), gwEnv()); // no DB at all
+  assert.equal(res.status, 200);
+});
+
+await t('admin without ADMIN_SECRET -> 503', async () => {
+  const res = await gw.fetch(req('/admin/keys', { method: 'POST', body: '{}' }), gwEnv({ DB: mockDB() }));
+  assert.equal(res.status, 503);
+  assert.equal((await res.json()).error.code, 'admin_not_configured');
+});
+
+await t('admin wrong secret -> 403', async () => {
+  const res = await gw.fetch(req('/admin/keys', { method: 'POST', body: '{"email":"a@b.co"}', headers: { 'x-admin-secret': 'nope' } }),
+    gwEnv({ DB: mockDB(), ADMIN_SECRET: 'right' }));
+  assert.equal(res.status, 403);
+});
+
+await t('admin happy path -> 201, key shown once, hash stored not raw', async () => {
+  const rec = [];
+  const DB = mockDB({}, rec);
+  const res = await gw.fetch(req('/admin/keys', { method: 'POST', body: '{"email":"dev@example.com","tier":"paid","label":"ci"}', headers: { 'x-admin-secret': 'right' } }),
+    gwEnv({ DB, ADMIN_SECRET: 'right' }));
+  assert.equal(res.status, 201);
+  const j = await res.json();
+  assert.ok(j.key.startsWith('fmt_live_'));
+  assert.equal(j.tier, 'paid');
+  const inserts = rec.filter(([sql]) => sql.startsWith('INSERT INTO keys'));
+  assert.equal(inserts.length, 1);
+  assert.ok(!inserts[0][1].some(a => String(a).startsWith('fmt_live_')), 'raw key must never be stored');
+});
+
+await t('admin bad email -> 400', async () => {
+  const res = await gw.fetch(req('/admin/keys', { method: 'POST', body: '{"email":"not-an-email"}', headers: { 'x-admin-secret': 'right' } }),
+    gwEnv({ DB: mockDB(), ADMIN_SECRET: 'right' }));
+  assert.equal(res.status, 400);
+});
+
+await t('D1 fail-open on lookup throws -> anon-style 200 without key error', async () => {
+  const DB = { prepare() { return { bind() { return { first: async () => { throw new Error('d1 down'); } } }, first: async () => { throw new Error('d1 down'); } }; } };
+  const res = await gw.fetch(req('/v1/json-format', { headers: { 'x-api-key': 'fmt_live_any' } }), gwEnv({ DB }));
+  assert.equal(res.status, 200); // lookupKey catch -> null -> treated as... 401? No: fail-open means proxy
 });
 
 console.log(`\napi-gateway: ${pass} passed, ${fail} failed`);
