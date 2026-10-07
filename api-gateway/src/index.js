@@ -1,12 +1,14 @@
 // Formatho API Gateway — Phase A (proxy) + Phase B (anonymous per-IP rate limiting)
 //                        + Phase C (D1 hashed API keys + tiered limits + admin issuance)
 // One prefix /v1/* → service-bound tool workers' /api endpoints.
-// Owner gates still held: plan §9 (api.formatho.com DNS, pricing numbers, Stripe,
-// Workers Paid). ADMIN_SECRET is unset by default → /admin/keys returns 503.
+// 2026-10-07 (Phase D): api.formatho.com custom domain live (owner created the
+// DNS record; route attached here). Remaining owner gates: plan §9 pricing
+// numbers, Stripe, ADMIN_SECRET, Workers Paid. ADMIN_SECRET unset by default
+// → /admin/keys returns 503.
 // Privacy: proxies pass through; gateway itself logs nothing; Phase C stores only
 // hashed keys + aggregate request counts — never payloads.
 
-const HOST = 'https://api-gateway-formatho.filesformatho.workers.dev';
+const HOST = 'https://api.formatho.com';
 
 const JSON_HEADERS = {
   'Content-Type': 'application/json',
@@ -125,8 +127,8 @@ footer { margin-top: 2.5rem; border-top: 1px solid #8884; padding-top: 1rem; fon
 </table>
 
 <h2>Example</h2>
-<pre><code>curl "https://api-gateway-formatho.filesformatho.workers.dev/v1/md5?text=hello"
-curl -X POST "https://api-gateway-formatho.filesformatho.workers.dev/v1/json-format" \\
+<pre><code>curl "https://api.formatho.com/v1/md5?text=hello"
+curl -X POST "https://api.formatho.com/v1/json-format" \\
   -H "Content-Type: application/json" -d '{"json":"{\\"a\\":1}","indent":2}'</code></pre>
 
 <div class="privacy"><strong>Privacy-first, always.</strong> The gateway logs request <em>counts</em> at the infrastructure level only — never payloads, never keys, never IP-linked history. Every proxied tool runs on Cloudflare Workers with zero data collection. See <a href="https://formatho.com/">formatho.com</a>.</div>
@@ -162,8 +164,11 @@ const ANON_PERIOD = 60;  // seconds
 // the API must stay up even if the limiter is missing, misconfigured, or erroring.
 // Live finding 2026-10-05: binding deploys + answers {success:true} but never
 // enforces on this free-plan workers.dev route (117 test reqs, zero 429s).
-// Enforcement is expected to activate on a zone-routed custom domain (owner gate)
-// or plan change — zero code change needed when it does.
+// RE-TESTED 2026-10-07 on zone route api.formatho.com/* (route attached, workers
+// routes beat the old 301-to-origin): 40 rapid reqs vs 30/60s limit — STILL zero
+// 429s (x-ratelimit-limit header present, limiter invoked). Non-enforcement is
+// plan-level, not route-level: enforcement gate = Workers Paid (owner), zero code
+// change needed when it flips.
 async function anonRateOk(request, env) {
   const limiter = env.FREE_ANON;
   if (!limiter || typeof limiter.limit !== 'function') return true;

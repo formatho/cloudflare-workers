@@ -5,7 +5,7 @@ one versioned prefix proxying 14 tool workers' `/api` endpoints via **service
 bindings** (A), with anonymous per-IP rate limiting wired through a `FREE_ANON`
 ratelimit binding + 429 envelope/headers (B). Tool workers unchanged.
 
-- **Landing:** `https://api-gateway-formatho.filesformatho.workers.dev/`
+- **Landing:** `https://api.formatho.com/` (zone route, live 10-07) · `https://api-gateway-formatho.filesformatho.workers.dev/` (unchanged)
 - **Route directory:** `GET /v1` (machine-readable) — 14 routes under `/v1/*`
 - **Proxy contract:** method + query + body + Content-Type pass through 1:1;
   path rewritten `/v1/<route>` → `/api`; upstream response body untouched
@@ -22,10 +22,14 @@ ratelimit binding + 429 envelope/headers (B). Tool workers unchanged.
 | C | next | D1 `formatho-api-db` keys (SHA-256 hashed), tier select |
 | D | owner-gated | Stripe billing, self-serve, email delivery |
 
-## Owner gates (plan §9 — unchanged)
+## Owner gates (plan §9 — updated 10-07)
 
-`api.formatho.com` custom domain (public brand surface), pricing/tier limits,
-Stripe, email provider. Legacy `*.workers.dev/api` URLs stay free + untouched.
+~~`api.formatho.com` DNS~~ **ACTIONED**: owner created proxied DNS records; wired
+via Workers **route** `api.formatho.com/*` (custom-domain takeover blocked by
+externally-managed records, API code 100117 — needs owner `dns_records` scope or
+record deletion to convert; route serves identically). Still owner-gated:
+pricing/tier limits, Stripe, ADMIN_SECRET, email provider, Workers Paid.
+Legacy `*.workers.dev/api` URLs stay free + untouched.
 
 ## Tests
 
@@ -44,9 +48,12 @@ request (`limit({key: CF-Connecting-IP})` → `{success:true}`), but never
 single-colo) all passed — zero 429s. `wrangler tail` shows no runtime warnings.
 Most plausible cause: the WAF-backed counter isn't active on free-plan
 workers.dev routes (docs unverifiable offline). The handler **fails open by
-design**, so behavior equals Phase A until enforcement activates — expected on
-a zone-routed custom domain (`api.formatho.com`, owner gate §9) or plan
-change, with **zero code change** (limit tuning = wrangler.toml + redeploy).
+design**, so behavior equals Phase A until enforcement activates —
+**RE-TESTED 10-07 on the zone route `api.formatho.com/*`: 40 rapid reqs vs
+30/60s — STILL zero 429s** (header `x-ratelimit-limit: 30` present, limiter
+invoked). Non-enforcement is plan-level, not route-level: the gate is
+**Workers Paid**, with **zero code change** when it flips (limit tuning =
+wrangler.toml + redeploy).
 
 ## Notes
 
@@ -60,4 +67,4 @@ change, with **zero code change** (limit tuning = wrangler.toml + redeploy).
 - **Admin:** `POST /admin/keys {email,tier,label}` + `x-admin-secret`. Returns the raw key (`fmt_live_…`) exactly once. **503 until the owner sets `ADMIN_SECRET`** (`wrangler secret put ADMIN_SECRET`) — launch gate held; e2e-tested 10-06 with a temporary secret (issue → paid-200 → revoke → 401 → secret deleted → 503).
 - **Usage:** batched `usage_daily` writes (every 25 counted requests via `waitUntil`) — advisory counts, never payloads.
 - **Tests:** `node tests/api-gateway.test.mjs` — 31 (21 A/B + 10 C).
-- Owner gates unchanged: api.formatho.com DNS, pricing/limit numbers, Stripe, Workers Paid (plan §9).
+- Owner gates updated 10-07: ~~api.formatho.com DNS~~ actioned (route `api.formatho.com/*` live; custom-domain takeover needs owner dns_records scope, code 100117); remaining: pricing/limit numbers, Stripe, ADMIN_SECRET, Workers Paid (plan §9).

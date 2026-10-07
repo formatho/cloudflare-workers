@@ -2,6 +2,15 @@ name = "api-gateway-formatho"
 main = "src/index.js"
 compatibility_date = "2026-08-01"
 
+workers_dev = true  # advertised/backlinked URL — never disable
+
+# Phase D (2026-10-07): owner created api.formatho.com DNS records (proxied, externally
+# managed — custom_domain attach fails w/ code 100117, no dns_records scope to take over).
+# Route pattern instead: intercepts before origin at the edge; zone must be in this account.
+routes = [
+  { pattern = "api.formatho.com/*", zone_name = "formatho.com" }
+]
+
 # Phase A of the paid-API-tier plan (backlog #1) — pure proxy via service
 # bindings; no auth, no rate limits yet (Phase B/C). Custom domain
 # api.formatho.com + pricing are owner gates (plan §9).
