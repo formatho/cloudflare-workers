@@ -59,6 +59,8 @@ Free, fast, zero-tracking developer tool APIs running on [Cloudflare Workers](ht
 | CSV Counter | https://csv-counter-formatho.filesformatho.workers.dev | POST text/csv body (or `?csv=...`): rows, columns, per-column fill/distinct stats |
 | XML ⇄ JSON Converter | https://xml-json-formatho.filesformatho.workers.dev | `?xml=...` → JSON (@attrs, arrays, #text) · `?json=...`/POST → XML (`root`, `indent`), round-trip-safe typing |
 | AES Encryption | https://aes-encryption-formatho.filesformatho.workers.dev | `?text=...&password=...` → AES-256-GCM envelope (PBKDF2-SHA256, 10k-310k iters, base64/hex) · `mode=decrypt` + `envelope` back |
+| List Converter | https://list-converter-formatho.filesformatho.workers.dev | `?text=...` list ⇄ comma/newline/semicolon/tab/pipe/space/JSON/HTML (`from`,`to`,`quote`,`dedupe=ci`,`sort`,`spacing`) |
+| Password Strength Checker | https://password-strength-formatho.filesformatho.workers.dev | `?password=...`/POST → entropy bits, effective bits after pattern penalties, 0-6 score, crack times ×5 attack scenarios, suggestions |
 
 Directory of all 46 (with instant search `/` + category filter): https://formatho-tools.filesformatho.workers.dev
 
@@ -86,7 +88,7 @@ All Workers in this repo run on the Cloudflare Workers **free plan**. Limits are
 | Simultaneous outgoing connections | 6 per request | n/a |
 | Worker size | 64 MiB | Each Worker is a few KB |
 | Startup time | 1 second | n/a |
-| Workers per account | 100 | Fleet at 51/100 |
+| Workers per account | 100 | Fleet at 53/100 |
 | Cron triggers | 5 per account | 0 used |
 | Environment variables | 64 per Worker (5 KB each) | Minimal use |
 | Request body | 100 MB (Cloudflare free plan) | Most APIs are GET-query based; keep big payloads in the browser tools |
