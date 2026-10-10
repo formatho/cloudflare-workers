@@ -61,6 +61,10 @@ Free, fast, zero-tracking developer tool APIs running on [Cloudflare Workers](ht
 | AES Encryption | https://aes-encryption-formatho.filesformatho.workers.dev | `?text=...&password=...` → AES-256-GCM envelope (PBKDF2-SHA256, 10k-310k iters, base64/hex) · `mode=decrypt` + `envelope` back |
 | List Converter | https://list-converter-formatho.filesformatho.workers.dev | `?text=...` list ⇄ comma/newline/semicolon/tab/pipe/space/JSON/HTML (`from`,`to`,`quote`,`dedupe=ci`,`sort`,`spacing`) |
 | Password Strength Checker | https://password-strength-formatho.filesformatho.workers.dev | `?password=...`/POST → entropy bits, effective bits after pattern penalties, 0-6 score, crack times ×5 attack scenarios, suggestions |
+| Certificate Fingerprint | https://certificate-fingerprint-formatho.filesformatho.workers.dev | `?cert=-----BEGIN%20CERTIFICATE…` (PEM or DER) |
+| RSA Key Format Converter | https://key-format-converter-formatho.filesformatho.workers.dev | `?key=-----BEGIN%20RSA%20PRIVATE%20KEY…&to=pkcs8` |
+| Keccak-256 Generator | https://keccak256-formatho.filesformatho.workers.dev | `?text=hello` or `?hex=0x68656c6c6f` (Ethereum padding) |
+| Function Selector Calculator | https://function-selector-formatho.filesformatho.workers.dev | `?sig=transfer(address,uint256)`; newline-separated bulk |
 
 Directory of all 46 (with instant search `/` + category filter): https://formatho-tools.filesformatho.workers.dev
 
@@ -88,7 +92,7 @@ All Workers in this repo run on the Cloudflare Workers **free plan**. Limits are
 | Simultaneous outgoing connections | 6 per request | n/a |
 | Worker size | 64 MiB | Each Worker is a few KB |
 | Startup time | 1 second | n/a |
-| Workers per account | 100 | Fleet at 53/100 |
+| Workers per account | 100 | Fleet at 59/100 |
 | Cron triggers | 5 per account | 0 used |
 | Environment variables | 64 per Worker (5 KB each) | Minimal use |
 | Request body | 100 MB (Cloudflare free plan) | Most APIs are GET-query based; keep big payloads in the browser tools |
