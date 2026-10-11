@@ -3,6 +3,8 @@
 #
 # Source of truth for "advertised fleet": worker URLs listed in tools-index/src/index.js.
 # Live checks per worker: GET / (200 + <title>), GET /sitemap.xml (200), GET /api (< 500),
+#   landing carries >=1 <script type="application/ld+json"> block that parses as JSON
+#   (guards rich-results eligibility; the 09-30 fleet-wide JSON-LD fix made standing here),
 #   and every formatho.com backlink on the landing page resolves 200 after redirects
 #   (guards the 2026-09-26 drift class: stale root-slug URLs 404ing after the /tools/* move).
 # Drift checks: local wrangler.toml worker names vs advertised URLs (both directions).
@@ -27,7 +29,7 @@ echo "---"
 
 check_host() {
   local base="$1" t="$2" row
-  local landing_code landing_title sitemap_code api_code
+  local landing_code landing_title sitemap_code api_code ld_ok
   landing_code=$(curl -s --max-time "$t" -o /tmp/fh-body.$$ -w '%{http_code}' "$base/")
   landing_title=$(grep -c '<title>' /tmp/fh-body.$$ 2>/dev/null || true)
   sitemap_code=$(curl -s --max-time "$t" -o /dev/null -w '%{http_code}' "$base/sitemap.xml")
@@ -42,17 +44,32 @@ check_host() {
     code=$(curl -s -L --max-time "$t" -o /dev/null -w '%{http_code}' "$u/")
     if [ "$code" = "200" ]; then bl_ok=$((bl_ok+1)); else bl_detail="${bl_detail} ${u}:${code}"; fi
   done <<< "$bl"
+  # JSON-LD check: landing must carry structured data and every block must parse as JSON.
+  ld_ok=1
+  python3 -c '
+import json, re, sys
+body = open(sys.argv[1], encoding="utf-8", errors="replace").read()
+blocks = re.findall(r"<script type=\"application/ld\+json\">(.*?)</script>", body, re.S)
+ok = bool(blocks)
+for b in blocks:
+    try:
+        json.loads(b)
+    except Exception:
+        ok = False
+sys.exit(0 if ok else 1)' /tmp/fh-body.$$ 2>/dev/null || ld_ok=0
   rm -f /tmp/fh-body.$$
   local ok=1
   [ "$landing_code" = "200" ] && [ "$landing_title" -ge 1 ] || ok=0
   [ "$sitemap_code" = "200" ] || ok=0
   [ "$api_code" -lt 500 ] 2>/dev/null || ok=0
+  [ "$ld_ok" = "1" ] || ok=0
   [ "${bl_total:-0}" -ge 1 ] && [ "$bl_ok" = "$bl_total" ] || ok=0
   if [ "$ok" = "1" ]; then
-    row="OK    $base  (landing ${landing_code}/title, sitemap ${sitemap_code}, api ${api_code}, backlinks ${bl_ok}/${bl_total})"
+    row="OK    $base  (landing ${landing_code}/title, sitemap ${sitemap_code}, api ${api_code}, ld+json ok, backlinks ${bl_ok}/${bl_total})"
   else
     [ "${bl_total:-0}" -ge 1 ] || bl_detail=" no-formatho-backlink"
-    row="FAIL  $base  (landing ${landing_code}/title:${landing_title}, sitemap ${sitemap_code}, api ${api_code}, backlinks ${bl_ok}/${bl_total}:${bl_detail})"
+    [ "$ld_ok" = "1" ] || bl_detail="${bl_detail} ld+json-missing-or-unparseable"
+    row="FAIL  $base  (landing ${landing_code}/title:${landing_title}, sitemap ${sitemap_code}, api ${api_code}, ld+json:${ld_ok}, backlinks ${bl_ok}/${bl_total}:${bl_detail})"
   fi
   echo "$row"
 }
