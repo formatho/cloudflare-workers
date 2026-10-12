@@ -67,6 +67,8 @@ Free, fast, zero-tracking developer tool APIs running on [Cloudflare Workers](ht
 | Function Selector Calculator | https://function-selector-formatho.filesformatho.workers.dev | `?sig=transfer(address,uint256)`; newline-separated bulk |
 | EIP-55 Address Checksum | https://address-checksum-formatho.filesformatho.workers.dev | `?address=0x…` — checksummed form + per-position case validation |
 | ENS Namehash Calculator | https://ens-namehash-formatho.filesformatho.workers.dev | `?name=alice.eth` — ENSIP-2 node hash + per-label labelhashes |
+| CREATE2 Address Calculator | https://create2-calculator-formatho.filesformatho.workers.dev | `?factory=0x…&salt=0x…&init_code=0x…` — EIP-1014 address + 85-byte preimage (4 spec vectors) |
+| PDF Signature Checker | https://pdf-signature-checker-formatho.filesformatho.workers.dev | POST PDF (raw or `pdf_base64`) — /ByteRange coverage, unsigned bytes, SubFilter, verdict |
 
 Directory of all 46 (with instant search `/` + category filter): https://formatho-tools.filesformatho.workers.dev
 
@@ -94,7 +96,7 @@ All Workers in this repo run on the Cloudflare Workers **free plan**. Limits are
 | Simultaneous outgoing connections | 6 per request | n/a |
 | Worker size | 64 MiB | Each Worker is a few KB |
 | Startup time | 1 second | n/a |
-| Workers per account | 100 | Fleet at 61/100 |
+| Workers per account | 100 | Fleet at 63/100 |
 | Cron triggers | 5 per account | 0 used |
 | Environment variables | 64 per Worker (5 KB each) | Minimal use |
 | Request body | 100 MB (Cloudflare free plan) | Most APIs are GET-query based; keep big payloads in the browser tools |
