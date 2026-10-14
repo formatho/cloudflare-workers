@@ -73,6 +73,8 @@ Free, fast, zero-tracking developer tool APIs running on [Cloudflare Workers](ht
 | Security Headers Checker | https://security-headers-formatho.filesformatho.workers.dev | Scan a URL for HSTS/CSP + 7 more headers — A+ to F grade + nginx/Apache/Express snippets |
 | Date-Time Converter | https://date-time-converter-formatho.filesformatho.workers.dev | ISO 8601 ⇄ Unix ⇄ RFC 2822/HTTP dates, any-timezone conversion, epoch s/ms/µs/ns auto-detect |
 | Storage Slot Calculator | https://storage-slot-calculator-formatho.filesformatho.workers.dev | Solidity/EVM storage slots: mappings, dynamic arrays, bytes & strings via keccak-256 |
+| RSA Key Pair Generator | https://rsa-key-pair-generator-formatho.filesformatho.workers.dev | RSA keygen (2048/3072/4096): PKCS#8 + SPKI PEM, OpenSSH public key, SHA-256 fingerprints, no-store |
+| Prompt Template Renderer | https://prompt-template-renderer-formatho.filesformatho.workers.dev | {{variable}} prompt rendering with JSON vars: dot paths, missing policies, used/unused report |
 
 Directory of all 46 (with instant search `/` + category filter): https://formatho-tools.filesformatho.workers.dev
 
@@ -100,7 +102,7 @@ All Workers in this repo run on the Cloudflare Workers **free plan**. Limits are
 | Simultaneous outgoing connections | 6 per request | n/a |
 | Worker size | 64 MiB | Each Worker is a few KB |
 | Startup time | 1 second | n/a |
-| Workers per account | 100 | Fleet at 67/100 |
+| Workers per account | 100 | Fleet at 69/100 |
 | Cron triggers | 5 per account | 0 used |
 | Environment variables | 64 per Worker (5 KB each) | Minimal use |
 | Request body | 100 MB (Cloudflare free plan) | Most APIs are GET-query based; keep big payloads in the browser tools |
