@@ -320,13 +320,17 @@ const LANDING_HTML = `<!DOCTYPE html>
 <title>Security Headers Checker — Scan, Grade &amp; Generate HTTP Headers, Free &amp; Private</title>
 <meta name="description" content="Free security headers scanner &amp; API. Scan any URL for HSTS, CSP, X-Content-Type-Options, X-Frame-Options, Referrer-Policy &amp; more — get a grade plus ready-to-paste nginx, Apache and Express config.">
 <link rel="canonical" href="${HOST}/">
-<style>body{font-family:system-ui,-apple-system,sans-serif;max-width:780px;margin:2rem auto;padding:0 1rem;line-height:1.6;color:#1a202c}h1{font-size:1.6rem}pre{background:#f6f8fa;padding:.8rem;border-radius:8px;overflow:auto;font-size:.85rem}code{background:#f6f8fa;padding:.1rem .3rem;border-radius:4px}</style>
+<style>body{font-family:system-ui,-apple-system,sans-serif;max-width:780px;margin:2rem auto;padding:0 1rem;line-height:1.6;color:#1a202c}h1{font-size:1.6rem}pre{background:#f6f8fa;padding:.8rem;border-radius:8px;overflow:auto;font-size:.85rem}code{background:#f6f8fa;padding:.1rem .3rem;border-radius:4px}.cta{display:inline-block;margin:.25rem 0 .35rem;padding:.65rem 1.1rem;border-radius:8px;background:#0a7d3c;color:#fff !important;font-weight:600;text-decoration:none}.cta:hover{background:#086b33}.cta-sub{color:#888;font-size:.85rem;margin:0 0 1.5rem}</style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebApplication","name":"Security Headers Checker","url":"${HOST}/","description":"Scan any URL's response headers for HSTS, CSP, X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy and cross-origin isolation — graded A+ to F with nginx, Apache and Express config snippets. Free, private, no tracking.","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Formatho","url":"https://formatho.com"}}
 </script>
 </head>
 <body>
 <h1>Security Headers Checker &amp; Generator</h1>
+
+<a class="cta" href="https://formatho.com/tools/security-headers">Open the full browser tool &#8594;</a>
+<p class="cta-sub">Free, no signup, runs entirely in your browser &#8212; your data never leaves your device.</p>
+
 <p>Fetches your URL once from the edge and audits nine security headers — <strong>HSTS, Content-Security-Policy, X-Content-Type-Options, X-Frame-Options/frame-ancestors, Referrer-Policy, Permissions-Policy, COOP, COEP and CORP</strong> — then scores the site A+ to F. For every missing header you get ready-to-paste <strong>nginx, Apache and Express</strong> config generated from what your site actually lacks.</p>
 
 <h2>API — GET /api</h2>

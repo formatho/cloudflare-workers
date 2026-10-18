@@ -80,7 +80,7 @@ a { color: #06c; }
 .badge { background: #8882; border-radius: 999px; padding: .15rem .7rem; font-size: .8rem; }
 .privacy { background: #0a51; border: 1px solid #0a83; border-radius: 8px; padding: .8rem 1rem; }
 footer { margin-top: 2.5rem; border-top: 1px solid #8884; padding-top: 1rem; font-size: .85rem; color: #888; }
-</style>
+.cta{display:inline-block;margin:.25rem 0 .35rem;padding:.65rem 1.1rem;border-radius:8px;background:#0a7d3c;color:#fff !important;font-weight:600;text-decoration:none}.cta:hover{background:#086b33}.cta-sub{color:#888;font-size:.85rem;margin:0 0 1.5rem}</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -103,6 +103,10 @@ footer { margin-top: 2.5rem; border-top: 1px solid #8884; padding-top: 1rem; fon
 <p class="tagline">14 privacy-first developer tool APIs behind one versioned prefix — free during preview, no signup.</p>
 <div class="badges"><span class="badge">/v1</span><span class="badge">GET + POST</span><span class="badge">CORS *</span><span class="badge">Zero tracking</span><span class="badge">30 req/min anon</span><span class="badge">Edge (Cloudflare)</span></div>
 </header>
+
+<a class="cta" href="https://formatho.com/">Browse the full browser tools &#8594;</a>
+<p class="cta-sub">Free, no signup, run entirely in your browser &#8212; your data never leaves your device.</p>
+
 
 <p>Every endpoint proxies the battle-tested API of a live <a href="https://formatho-tools.filesformatho.workers.dev/">Formatho edge tool</a>. Query parameters pass through 1:1 — the same params each tool documents on its own <code>/api</code> endpoint. The full machine-readable route list is <a href="/v1"><code>GET /v1</code></a>.</p>
 

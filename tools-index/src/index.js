@@ -187,7 +187,7 @@ a { color: #06c; }
 #chips button.on { background: #06c; border-color: #06c; color: #fff; }
 #count { font-size: .8rem; color: #888; margin: .3rem 0 0; }
 footer { margin-top: 2rem; color: #888; font-size: .85rem; }
-</style>
+.cta{display:inline-block;margin:.25rem 0 .35rem;padding:.65rem 1.1rem;border-radius:8px;background:#0a7d3c;color:#fff !important;font-weight:600;text-decoration:none}.cta:hover{background:#086b33}.cta-sub{color:#888;font-size:.85rem;margin:0 0 1.5rem}</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -626,6 +626,10 @@ footer { margin-top: 2rem; color: #888; font-size: .85rem; }
 </head>
 <body>
 <h1>Formatho Tools — Free Privacy-First APIs</h1>
+
+<a class="cta" href="https://formatho.com/">Browse the full browser tools &#8594;</a>
+<p class="cta-sub">Free, no signup, runs entirely in your browser &#8212; your data never leaves your device.</p>
+
 <p>${TOOLS.length} free developer tool APIs running on Cloudflare's edge. <strong>Zero tracking, zero data collection, zero logging.</strong> Every tool also has a full client-side version on <a href="https://formatho.com">formatho.com</a> where your data never leaves your browser.</p>
 <div id="filter" hidden>
   <input type="search" id="q" placeholder="Filter ${TOOLS.length} tools… (press /)" aria-label="Filter tools" autocomplete="off">

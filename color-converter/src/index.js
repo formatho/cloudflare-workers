@@ -205,7 +205,7 @@ footer { margin-top: 2.5rem; border-top: 1px solid #8884; padding-top: 1rem; fon
 table { border-collapse: collapse; width: 100%; font-size: .9rem; }
 th, td { border: 1px solid #8884; padding: .35rem .6rem; text-align: left; }
 .swatch { display: inline-block; width: 1em; height: 1em; border-radius: 3px; background: #f60; vertical-align: -0.1em; border: 1px solid #8884; }
-</style>
+.cta{display:inline-block;margin:.25rem 0 .35rem;padding:.65rem 1.1rem;border-radius:8px;background:#0a7d3c;color:#fff !important;font-weight:600;text-decoration:none}.cta:hover{background:#086b33}.cta-sub{color:#888;font-size:.85rem;margin:0 0 1.5rem}</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -240,6 +240,10 @@ th, td { border: 1px solid #8884; padding: .35rem .6rem; text-align: left; }
   <h1>Color Converter — Free &amp; Private <span class="swatch"></span></h1>
   <p class="tagline">A free edge API by <a href="https://formatho.com">formatho.com</a>, privacy-first developer tools.</p>
 </header>
+
+<a class="cta" href="https://formatho.com/tools/color-converter">Open the full browser tool &#8594;</a>
+<p class="cta-sub">Free, no signup, runs entirely in your browser &#8212; your data never leaves your device.</p>
+
 
 <div class="badges">
   <span class="badge">🔓 Free</span>

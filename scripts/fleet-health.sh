@@ -57,19 +57,23 @@ for b in blocks:
     except Exception:
         ok = False
 sys.exit(0 if ok else 1)' /tmp/fh-body.$$ 2>/dev/null || ld_ok=0
+  # CRO CTA check: landing must carry the above-the-fold full-tool CTA button (class="cta").
+  cta_ok=$(grep -c 'class="cta"' /tmp/fh-body.$$ 2>/dev/null || true)
   rm -f /tmp/fh-body.$$
   local ok=1
   [ "$landing_code" = "200" ] && [ "$landing_title" -ge 1 ] || ok=0
   [ "$sitemap_code" = "200" ] || ok=0
   [ "$api_code" -lt 500 ] 2>/dev/null || ok=0
   [ "$ld_ok" = "1" ] || ok=0
+  [ "${cta_ok:-0}" -ge 1 ] 2>/dev/null || ok=0
   [ "${bl_total:-0}" -ge 1 ] && [ "$bl_ok" = "$bl_total" ] || ok=0
   if [ "$ok" = "1" ]; then
-    row="OK    $base  (landing ${landing_code}/title, sitemap ${sitemap_code}, api ${api_code}, ld+json ok, backlinks ${bl_ok}/${bl_total})"
+    row="OK    $base  (landing ${landing_code}/title, sitemap ${sitemap_code}, api ${api_code}, ld+json ok, cta ok, backlinks ${bl_ok}/${bl_total})"
   else
     [ "${bl_total:-0}" -ge 1 ] || bl_detail=" no-formatho-backlink"
     [ "$ld_ok" = "1" ] || bl_detail="${bl_detail} ld+json-missing-or-unparseable"
-    row="FAIL  $base  (landing ${landing_code}/title:${landing_title}, sitemap ${sitemap_code}, api ${api_code}, ld+json:${ld_ok}, backlinks ${bl_ok}/${bl_total}:${bl_detail})"
+    [ "${cta_ok:-0}" -ge 1 ] 2>/dev/null || bl_detail="${bl_detail} cta-missing"
+    row="FAIL  $base  (landing ${landing_code}/title:${landing_title}, sitemap ${sitemap_code}, api ${api_code}, ld+json:${ld_ok}, cta:${cta_ok:-0}, backlinks ${bl_ok}/${bl_total}:${bl_detail})"
   fi
   echo "$row"
 }

@@ -278,7 +278,7 @@ a { color: #06c; }
 footer { margin-top: 2.5rem; border-top: 1px solid #8884; padding-top: 1rem; font-size: .85rem; color: #888; }
 table { border-collapse: collapse; width: 100%; }
 td, th { border: 1px solid #8884; padding: .4rem .6rem; font-size: .9rem; text-align: left; }
-</style>
+.cta{display:inline-block;margin:.25rem 0 .35rem;padding:.65rem 1.1rem;border-radius:8px;background:#0a7d3c;color:#fff !important;font-weight:600;text-decoration:none}.cta:hover{background:#086b33}.cta-sub{color:#888;font-size:.85rem;margin:0 0 1.5rem}</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -300,6 +300,10 @@ td, th { border: 1px solid #8884; padding: .4rem .6rem; font-size: .9rem; text-a
   <h1>RSA Key Format Converter API — Free &amp; Private</h1>
   <p class="tagline">PKCS#1 ⇄ PKCS#8, SPKI ⇄ PKCS#1 public, PEM ⇄ DER — exactly what <code>openssl pkcs8 -topk8</code> does, as an API. By <a href="https://formatho.com">formatho.com</a>.</p>
 </header>
+
+<a class="cta" href="https://formatho.com/tools/key-format-converter">Open the full browser tool &#8594;</a>
+<p class="cta-sub">Free, no signup, runs entirely in your browser &#8212; your data never leaves your device.</p>
+
 <div class="badges">
   <span class="badge">Free</span><span class="badge">No signup</span><span class="badge">CORS enabled</span><span class="badge">Zero tracking</span><span class="badge">GET + POST</span>
 </div>

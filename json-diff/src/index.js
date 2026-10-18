@@ -197,13 +197,17 @@ const LANDING_HTML = `<!DOCTYPE html>
 <title>JSON Diff Online — Compare Two JSON Files, Free &amp; Private</title>
 <meta name="description" content="Free JSON diff tool &amp; API. Compare two JSON documents structurally — added, removed, changed and type-changed paths, optional RFC 6902 JSON Patch output. Private and unlimited.">
 <link rel="canonical" href="${HOST}/">
-<style>body{font-family:system-ui,-apple-system,sans-serif;max-width:780px;margin:2rem auto;padding:0 1rem;line-height:1.6;color:#1a202c}h1{font-size:1.6rem}pre{background:#f6f8fa;padding:.8rem;border-radius:8px;overflow:auto;font-size:.85rem}code{background:#f6f8fa;padding:.1rem .3rem;border-radius:4px}</style>
+<style>body{font-family:system-ui,-apple-system,sans-serif;max-width:780px;margin:2rem auto;padding:0 1rem;line-height:1.6;color:#1a202c}h1{font-size:1.6rem}pre{background:#f6f8fa;padding:.8rem;border-radius:8px;overflow:auto;font-size:.85rem}code{background:#f6f8fa;padding:.1rem .3rem;border-radius:4px}.cta{display:inline-block;margin:.25rem 0 .35rem;padding:.65rem 1.1rem;border-radius:8px;background:#0a7d3c;color:#fff !important;font-weight:600;text-decoration:none}.cta:hover{background:#086b33}.cta-sub{color:#888;font-size:.85rem;margin:0 0 1.5rem}</style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebApplication","name":"JSON Diff","url":"${HOST}/","description":"Compare two JSON documents structurally — added, removed, changed and type-changed paths, optional RFC 6902 JSON Patch output. Free, private, no tracking.","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Formatho","url":"https://formatho.com"}}
 </script>
 </head>
 <body>
 <h1>JSON Diff — compare two JSON documents</h1>
+
+<a class="cta" href="https://formatho.com/tools/json-diff">Open the full browser tool &#8594;</a>
+<p class="cta-sub">Free, no signup, runs entirely in your browser &#8212; your data never leaves your device.</p>
+
 <p>Structural comparison of any two JSON values: objects are compared key-by-key (order-independent), arrays index-by-index. Every difference is reported with its <strong>JSON Pointer path</strong> (<code>/users/1/email</code>) and the before/after values. Ask for <code>patch=true</code> to also get an <strong>RFC 6902 JSON Patch</strong>, verified to transform <code>a</code> into <code>b</code>.</p>
 
 <h2>API — GET /api</h2>
