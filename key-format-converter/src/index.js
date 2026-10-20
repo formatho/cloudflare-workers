@@ -278,7 +278,7 @@ a { color: #06c; }
 footer { margin-top: 2.5rem; border-top: 1px solid #8884; padding-top: 1rem; font-size: .85rem; color: #888; }
 table { border-collapse: collapse; width: 100%; }
 td, th { border: 1px solid #8884; padding: .4rem .6rem; font-size: .9rem; text-align: left; }
-.cta{display:inline-block;margin:.25rem 0 .35rem;padding:.65rem 1.1rem;border-radius:8px;background:#0a7d3c;color:#fff !important;font-weight:600;text-decoration:none}.cta:hover{background:#086b33}.cta-sub{color:#888;font-size:.85rem;margin:0 0 1.5rem}</style>
+.cta{display:inline-block;margin:.25rem 0 .35rem;padding:.65rem 1.1rem;border-radius:8px;background:#0a7d3c;color:#fff !important;font-weight:600;text-decoration:none}.cta:hover{background:#086b33}.cta-sub{color:#888;font-size:.85rem;margin:0 0 1.5rem}.related{margin-top:2rem}.related h2{font-size:1.05rem;margin:0 0 .4rem}.related ul{display:flex;flex-wrap:wrap;gap:.45rem;list-style:none;padding:0;margin:0}.related a{display:inline-block;padding:.25rem .7rem;border:1px solid #8884;border-radius:999px;font-size:.85rem;text-decoration:none}</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -348,6 +348,11 @@ td, th { border: 1px solid #8884; padding: .4rem .6rem; font-size: .9rem; text-a
 
 <div class="privacy"><strong>Privacy:</strong> keys are converted in edge memory and discarded — never logged, never stored. Prefer POST so key material stays out of access logs.</div>
 
+
+<nav class="related" aria-label="Related tools">
+<h2>Related free edge tools</h2>
+<ul><li><a href="https://md5-generator-formatho.filesformatho.workers.dev/" title="MD5 hashes for checksums &amp; legacy use.">MD5 Generator</a></li><li><a href="https://sha256-generator-formatho.filesformatho.workers.dev/" title="SHA-256 hashes via Web Crypto.">SHA-256 Generator</a></li><li><a href="https://hash-generator-formatho.filesformatho.workers.dev/" title="MD5, SHA-1, SHA-256, SHA-512 in one call.">Hash Generator</a></li><li><a href="https://hmac-generator-formatho.filesformatho.workers.dev/" title="HMAC signatures: SHA-1/256/384/512, hex or Base64.">HMAC Generator</a></li><li><a href="https://aes-encryption-formatho.filesformatho.workers.dev/" title="AES-256-GCM encrypt &amp; decrypt — PBKDF2-SHA256 key derivation, base64 or hex envelope.">AES Encryption</a></li><li><a href="https://keccak256-formatho.filesformatho.workers.dev/" title="Ethereum keccak-256 hashes (original Keccak padding, not SHA3-256) from text or hex bytes.">Keccak-256 Generator</a></li></ul>
+</nav>
 <footer>
   <p>Full in-browser tool (keys never leave your browser): <a href="${FULL_TOOL}">Private Key Format Converter on formatho.com</a> · More free APIs: <a href="https://formatho-tools.filesformatho.workers.dev">Formatho Tools index</a></p>
 </footer>

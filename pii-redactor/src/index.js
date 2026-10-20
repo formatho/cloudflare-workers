@@ -36,7 +36,7 @@ pre { background: #8882; padding: .8rem 1rem; border-radius: 8px; overflow-x: au
 a { color: #06c; }
 .privacy { background: #0a51; border: 1px solid #0a83; border-radius: 8px; padding: .8rem 1rem; }
 footer { margin-top: 2.5rem; border-top: 1px solid #8884; padding-top: 1rem; font-size: .85rem; color: #888; }
-.cta{display:inline-block;margin:.25rem 0 .35rem;padding:.65rem 1.1rem;border-radius:8px;background:#0a7d3c;color:#fff !important;font-weight:600;text-decoration:none}.cta:hover{background:#086b33}.cta-sub{color:#888;font-size:.85rem;margin:0 0 1.5rem}</style>
+.cta{display:inline-block;margin:.25rem 0 .35rem;padding:.65rem 1.1rem;border-radius:8px;background:#0a7d3c;color:#fff !important;font-weight:600;text-decoration:none}.cta:hover{background:#086b33}.cta-sub{color:#888;font-size:.85rem;margin:0 0 1.5rem}.related{margin-top:2rem}.related h2{font-size:1.05rem;margin:0 0 .4rem}.related ul{display:flex;flex-wrap:wrap;gap:.45rem;list-style:none;padding:0;margin:0}.related a{display:inline-block;padding:.25rem .7rem;border:1px solid #8884;border-radius:999px;font-size:.85rem;text-decoration:none}</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -76,6 +76,11 @@ footer { margin-top: 2.5rem; border-top: 1px solid #8884; padding-top: 1rem; fon
 <p>Redact with a full UI: <a href="${FULL_TOOL}">PII Redactor on formatho.com</a>. Need weak-secret scanning instead? <a href="https://password-strength-formatho.filesformatho.workers.dev/">Password Strength Checker</a>.</p>
 <h2>All Formatho edge APIs</h2>
 <p>Browse every free Formatho Worker tool on the <a href="https://formatho-tools.filesformatho.workers.dev/">Formatho Tools index</a>.</p>
+
+<nav class="related" aria-label="Related tools">
+<h2>Related free edge tools</h2>
+<ul><li><a href="https://certificate-fingerprint-formatho.filesformatho.workers.dev/" title="SHA-1/SHA-256/SHA-512 fingerprints of any X.509 certificate (PEM or DER) — hex + colon form.">Certificate Fingerprint</a></li><li><a href="https://pdf-signature-checker-formatho.filesformatho.workers.dev/" title="Signed-PDF /ByteRange coverage analysis: unsigned/appended bytes, SubFilter, signing time, revisions.">PDF Signature Checker</a></li><li><a href="https://dmarc-parser-formatho.filesformatho.workers.dev/" title="Parse &amp; validate DMARC records (RFC 7489), or look up a domain's live record over DNS.">DMARC Record Parser</a></li><li><a href="https://json-formatter-formatho.filesformatho.workers.dev/" title="Format &amp; validate JSON with configurable indent.">JSON Formatter</a></li></ul>
+</nav>
 <footer>© formatho.com · <a href="${HOST}/sitemap.xml">sitemap.xml</a> · Part of the <a href="https://formatho.com">Formatho</a> privacy-first tool suite.</footer>
 </body>
 </html>`;

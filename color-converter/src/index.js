@@ -205,7 +205,7 @@ footer { margin-top: 2.5rem; border-top: 1px solid #8884; padding-top: 1rem; fon
 table { border-collapse: collapse; width: 100%; font-size: .9rem; }
 th, td { border: 1px solid #8884; padding: .35rem .6rem; text-align: left; }
 .swatch { display: inline-block; width: 1em; height: 1em; border-radius: 3px; background: #f60; vertical-align: -0.1em; border: 1px solid #8884; }
-.cta{display:inline-block;margin:.25rem 0 .35rem;padding:.65rem 1.1rem;border-radius:8px;background:#0a7d3c;color:#fff !important;font-weight:600;text-decoration:none}.cta:hover{background:#086b33}.cta-sub{color:#888;font-size:.85rem;margin:0 0 1.5rem}</style>
+.cta{display:inline-block;margin:.25rem 0 .35rem;padding:.65rem 1.1rem;border-radius:8px;background:#0a7d3c;color:#fff !important;font-weight:600;text-decoration:none}.cta:hover{background:#086b33}.cta-sub{color:#888;font-size:.85rem;margin:0 0 1.5rem}.related{margin-top:2rem}.related h2{font-size:1.05rem;margin:0 0 .4rem}.related ul{display:flex;flex-wrap:wrap;gap:.45rem;list-style:none;padding:0;margin:0}.related a{display:inline-block;padding:.25rem .7rem;border:1px solid #8884;border-radius:999px;font-size:.85rem;text-decoration:none}</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -283,6 +283,11 @@ curl "https://color-converter-formatho.filesformatho.workers.dev/api?color=hsl(3
 <h2>All Formatho edge APIs</h2>
 <p>Browse every free Formatho Worker tool on the <a href="https://formatho-tools.filesformatho.workers.dev/">Formatho Tools index</a>.</p>
 
+
+<nav class="related" aria-label="Related tools">
+<h2>Related free edge tools</h2>
+<ul><li><a href="https://meta-tag-generator-formatho.filesformatho.workers.dev/" title="SEO + Open Graph + Twitter meta tags from one call, with length warnings.">Meta Tag Generator</a></li><li><a href="https://csp-generator-formatho.filesformatho.workers.dev/" title="Content-Security-Policy headers from directives — token validation, best-practice warnings, report-only mode.">CSP Generator</a></li><li><a href="https://json-formatter-formatho.filesformatho.workers.dev/" title="Format &amp; validate JSON with configurable indent.">JSON Formatter</a></li><li><a href="https://base64-formatho.filesformatho.workers.dev/" title="Unicode-safe Base64 encode &amp; decode.">Base64 Encoder/Decoder</a></li></ul>
+</nav>
 <footer>© formatho.com · <a href="https://color-converter-formatho.filesformatho.workers.dev/sitemap.xml">sitemap.xml</a> · Part of the <a href="https://formatho.com">Formatho</a> privacy-first tool suite.</footer>
 </body>
 </html>

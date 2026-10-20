@@ -29,7 +29,7 @@ pre { background: #8882; padding: .8rem 1rem; border-radius: 8px; overflow-x: au
 a { color: #06c; }
 .privacy { background: #0a51; border: 1px solid #0a83; border-radius: 8px; padding: .8rem 1rem; }
 footer { margin-top: 2.5rem; border-top: 1px solid #8884; padding-top: 1rem; font-size: .85rem; color: #888; }
-.cta{display:inline-block;margin:.25rem 0 .35rem;padding:.65rem 1.1rem;border-radius:8px;background:#0a7d3c;color:#fff !important;font-weight:600;text-decoration:none}.cta:hover{background:#086b33}.cta-sub{color:#888;font-size:.85rem;margin:0 0 1.5rem}</style>
+.cta{display:inline-block;margin:.25rem 0 .35rem;padding:.65rem 1.1rem;border-radius:8px;background:#0a7d3c;color:#fff !important;font-weight:600;text-decoration:none}.cta:hover{background:#086b33}.cta-sub{color:#888;font-size:.85rem;margin:0 0 1.5rem}.related{margin-top:2rem}.related h2{font-size:1.05rem;margin:0 0 .4rem}.related ul{display:flex;flex-wrap:wrap;gap:.45rem;list-style:none;padding:0;margin:0}.related a{display:inline-block;padding:.25rem .7rem;border:1px solid #8884;border-radius:999px;font-size:.85rem;text-decoration:none}</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -70,6 +70,11 @@ footer { margin-top: 2.5rem; border-top: 1px solid #8884; padding-top: 1rem; fon
 <p>Parse user agents entirely client-side: <a href="${FULL_TOOL}">User Agent Parser on formatho.com</a>.</p>
 <h2>All Formatho edge APIs</h2>
 <p>Browse every free Formatho Worker tool on the <a href="https://formatho-tools.filesformatho.workers.dev/">Formatho Tools index</a>.</p>
+
+<nav class="related" aria-label="Related tools">
+<h2>Related free edge tools</h2>
+<ul><li><a href="https://cron-parser-formatho.filesformatho.workers.dev/" title="Plain-English cron explanations + next run times.">Cron Expression Explainer</a></li><li><a href="https://subnet-calculator-formatho.filesformatho.workers.dev/" title="CIDR math: netmask, broadcast, host range, class &amp; privacy flags.">IPv4 Subnet Calculator</a></li><li><a href="https://chmod-calculator-formatho.filesformatho.workers.dev/" title="755 ⇄ rwxr-xr-x both ways, setuid/setgid/sticky, plain English.">chmod Calculator</a></li><li><a href="https://url-parser-formatho.filesformatho.workers.dev/" title="Any URL → protocol, host, port, path, query params, hash as JSON.">URL Parser</a></li><li><a href="https://http-status-codes-formatho.filesformatho.workers.dev/" title="Any code 100-599: reason phrase, category, meaning, spec reference; class lists.">HTTP Status Codes</a></li><li><a href="https://cookie-analyzer-formatho.filesformatho.workers.dev/" title="Parse Cookie &amp; Set-Cookie headers: attributes, flags, expiry, scope, security warnings.">Cookie Analyzer</a></li></ul>
+</nav>
 <footer>© formatho.com · <a href="${HOST}/sitemap.xml">sitemap.xml</a> · Part of the <a href="https://formatho.com">Formatho</a> privacy-first tool suite.</footer>
 </body>
 </html>`;

@@ -127,7 +127,7 @@ a { color: #06c; }
 footer { margin-top: 2.5rem; border-top: 1px solid #8884; padding-top: 1rem; font-size: .85rem; color: #888; }
 table { border-collapse: collapse; width: 100%; font-size: .9rem; }
 th, td { border: 1px solid #8884; padding: .35rem .6rem; text-align: left; }
-.cta{display:inline-block;margin:.25rem 0 .35rem;padding:.65rem 1.1rem;border-radius:8px;background:#0a7d3c;color:#fff !important;font-weight:600;text-decoration:none}.cta:hover{background:#086b33}.cta-sub{color:#888;font-size:.85rem;margin:0 0 1.5rem}</style>
+.cta{display:inline-block;margin:.25rem 0 .35rem;padding:.65rem 1.1rem;border-radius:8px;background:#0a7d3c;color:#fff !important;font-weight:600;text-decoration:none}.cta:hover{background:#086b33}.cta-sub{color:#888;font-size:.85rem;margin:0 0 1.5rem}.related{margin-top:2rem}.related h2{font-size:1.05rem;margin:0 0 .4rem}.related ul{display:flex;flex-wrap:wrap;gap:.45rem;list-style:none;padding:0;margin:0}.related a{display:inline-block;padding:.25rem .7rem;border:1px solid #8884;border-radius:999px;font-size:.85rem;text-decoration:none}</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -206,6 +206,11 @@ curl -X POST --data-binary @input.txt \\
 <h2>All Formatho edge APIs</h2>
 <p>Browse every free Formatho Worker tool on the <a href="https://formatho-tools.filesformatho.workers.dev/">Formatho Tools index</a>.</p>
 
+
+<nav class="related" aria-label="Related tools">
+<h2>Related free edge tools</h2>
+<ul><li><a href="https://slug-generator-formatho.filesformatho.workers.dev/" title="SEO-friendly URL slugs, diacritic folding.">Slug Generator</a></li><li><a href="https://case-converter-formatho.filesformatho.workers.dev/" title="camelCase, snake_case, kebab-case &amp; 8 more in one call.">Case Converter</a></li><li><a href="https://diff-checker-formatho.filesformatho.workers.dev/" title="Compare two texts line by line — Myers diff, unified hunks, ignore-whitespace.">Diff Checker</a></li><li><a href="https://text-statistics-formatho.filesformatho.workers.dev/" title="Words, characters, sentences, paragraphs, reading time, top words.">Text Statistics</a></li><li><a href="https://list-converter-formatho.filesformatho.workers.dev/" title="Convert lists between comma, newline, semicolon, tab, pipe, JSON or HTML — dedupe, sort, quote.">List Converter</a></li></ul>
+</nav>
 <footer>© formatho.com · <a href="https://regex-tester-formatho.filesformatho.workers.dev/sitemap.xml">sitemap.xml</a> · Part of the <a href="https://formatho.com">Formatho</a> privacy-first tool suite.</footer>
 </body>
 </html>

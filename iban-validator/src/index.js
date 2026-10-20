@@ -124,7 +124,7 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
 a { color: #06c; }
 .privacy { background: #0a51; border: 1px solid #0a83; border-radius: 8px; padding: .8rem 1rem; }
 footer { margin-top: 2.5rem; border-top: 1px solid #8884; padding-top: 1rem; font-size: .85rem; color: #888; }
-.cta{display:inline-block;margin:.25rem 0 .35rem;padding:.65rem 1.1rem;border-radius:8px;background:#0a7d3c;color:#fff !important;font-weight:600;text-decoration:none}.cta:hover{background:#086b33}.cta-sub{color:#888;font-size:.85rem;margin:0 0 1.5rem}</style>
+.cta{display:inline-block;margin:.25rem 0 .35rem;padding:.65rem 1.1rem;border-radius:8px;background:#0a7d3c;color:#fff !important;font-weight:600;text-decoration:none}.cta:hover{background:#086b33}.cta-sub{color:#888;font-size:.85rem;margin:0 0 1.5rem}.related{margin-top:2rem}.related h2{font-size:1.05rem;margin:0 0 .4rem}.related ul{display:flex;flex-wrap:wrap;gap:.45rem;list-style:none;padding:0;margin:0}.related a{display:inline-block;padding:.25rem .7rem;border:1px solid #8884;border-radius:999px;font-size:.85rem;text-decoration:none}</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -189,6 +189,11 @@ footer { margin-top: 2.5rem; border-top: 1px solid #8884; padding-top: 1rem; fon
 <h2>All Formatho edge APIs</h2>
 <p>Browse every free Formatho Worker tool on the <a href="https://formatho-tools.filesformatho.workers.dev/">Formatho Tools index</a>.</p>
 
+
+<nav class="related" aria-label="Related tools">
+<h2>Related free edge tools</h2>
+<ul><li><a href="https://percentage-calculator-formatho.filesformatho.workers.dev/" title="X% of Y, X is what % of Y, and % increase/decrease.">Percentage Calculator</a></li><li><a href="https://gtin-validator-formatho.filesformatho.workers.dev/" title="GTIN-8/12/13/14 (EAN/UPC/ITF-14) validation + GS1 mod-10 check digit calculator.">GTIN Validator</a></li><li><a href="https://apy-calculator-formatho.filesformatho.workers.dev/" title="APR → APY for any compounding frequency, plus growth projection.">APY Calculator</a></li><li><a href="https://password-strength-formatho.filesformatho.workers.dev/" title="Password entropy bits, crack-time estimates for 5 attack scenarios, pattern detection &amp; tips.">Password Strength Checker</a></li><li><a href="https://impermanent-loss-formatho.filesformatho.workers.dev/" title="Constant-product AMM (x·y=k) LP vs HODL for any price ratio, with fee break-even &amp; scenarios.">Impermanent Loss Calculator</a></li></ul>
+</nav>
 <footer>© formatho.com · <a href="https://iban-validator-formatho.filesformatho.workers.dev/sitemap.xml">sitemap.xml</a> · Part of the <a href="https://formatho.com">Formatho</a> privacy-first tool suite.</footer>
 </body>
 </html>

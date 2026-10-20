@@ -187,7 +187,7 @@ a { color: #06c; }
 #chips button.on { background: #06c; border-color: #06c; color: #fff; }
 #count { font-size: .8rem; color: #888; margin: .3rem 0 0; }
 footer { margin-top: 2rem; color: #888; font-size: .85rem; }
-.cta{display:inline-block;margin:.25rem 0 .35rem;padding:.65rem 1.1rem;border-radius:8px;background:#0a7d3c;color:#fff !important;font-weight:600;text-decoration:none}.cta:hover{background:#086b33}.cta-sub{color:#888;font-size:.85rem;margin:0 0 1.5rem}</style>
+.cta{display:inline-block;margin:.25rem 0 .35rem;padding:.65rem 1.1rem;border-radius:8px;background:#0a7d3c;color:#fff !important;font-weight:600;text-decoration:none}.cta:hover{background:#086b33}.cta-sub{color:#888;font-size:.85rem;margin:0 0 1.5rem}.related{margin-top:2rem}.related h2{font-size:1.05rem;margin:0 0 .4rem}.related ul{display:flex;flex-wrap:wrap;gap:.45rem;list-style:none;padding:0;margin:0}.related a{display:inline-block;padding:.25rem .7rem;border:1px solid #8884;border-radius:999px;font-size:.85rem;text-decoration:none}</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -641,6 +641,11 @@ footer { margin-top: 2rem; color: #888; font-size: .85rem; }
 <p>These APIs run on the Cloudflare Workers <strong>free plan</strong>. The request quota is <strong>per account</strong> — all Formatho edge APIs above share <strong>100,000 requests/day</strong> (resets 00:00 UTC) with <strong>10 ms CPU</strong> and <strong>128 MB memory</strong> per invocation. If the daily cap is exhausted, Cloudflare returns <a href="https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/error-1027/" rel="noopener">error 1027</a> until the UTC reset; CPU or memory overruns surface as error 1102. For unlimited use, run the browser tools on <a href="https://formatho.com">formatho.com</a> (no server involved) or self-deploy any Worker on your own free account. Full limits: <a href="https://developers.cloudflare.com/workers/platform/limits/" rel="noopener">official Cloudflare docs</a>.</p>
 </section>
 ${items}
+
+<nav class="related" aria-label="Related tools">
+<h2>Popular edge tools</h2>
+<ul><li><a href="https://json-formatter-formatho.filesformatho.workers.dev/" title="Format &amp; validate JSON with configurable indent.">JSON Formatter</a></li><li><a href="https://base64-formatho.filesformatho.workers.dev/" title="Unicode-safe Base64 encode &amp; decode.">Base64 Encoder/Decoder</a></li><li><a href="https://uuid-generator-formatho.filesformatho.workers.dev/" title="RFC 4122 v4 UUIDs, bulk up to 100.">UUID Generator</a></li><li><a href="https://jwt-decoder-formatho.filesformatho.workers.dev/" title="Decode JWT header, payload &amp; claims (no verification).">JWT Decoder</a></li><li><a href="https://timestamp-converter-formatho.filesformatho.workers.dev/" title="Unix ⇄ ISO/UTC, auto s/ms detection.">Timestamp Converter</a></li><li><a href="https://regex-tester-formatho.filesformatho.workers.dev/" title="Test regular expressions — matches, capture &amp; named groups, indices as JSON.">Regex Tester</a></li></ul>
+</nav>
 <footer>© <a href="https://formatho.com">formatho.com</a> — privacy-first developer tools · <a href="/sitemap.xml">sitemap.xml</a> · <a href="/api">JSON list</a></footer>
 <script>
 (function(){

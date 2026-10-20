@@ -694,7 +694,7 @@ pre { background: #8882; padding: .8rem 1rem; border-radius: 8px; overflow-x: au
 a { color: #06c; }
 .privacy { background: #0a51; border: 1px solid #0a83; border-radius: 8px; padding: .8rem 1rem; }
 footer { margin-top: 2.5rem; border-top: 1px solid #8884; padding-top: 1rem; font-size: .85rem; color: #888; }
-.cta{display:inline-block;margin:.25rem 0 .35rem;padding:.65rem 1.1rem;border-radius:8px;background:#0a7d3c;color:#fff !important;font-weight:600;text-decoration:none}.cta:hover{background:#086b33}.cta-sub{color:#888;font-size:.85rem;margin:0 0 1.5rem}</style>
+.cta{display:inline-block;margin:.25rem 0 .35rem;padding:.65rem 1.1rem;border-radius:8px;background:#0a7d3c;color:#fff !important;font-weight:600;text-decoration:none}.cta:hover{background:#086b33}.cta-sub{color:#888;font-size:.85rem;margin:0 0 1.5rem}.related{margin-top:2rem}.related h2{font-size:1.05rem;margin:0 0 .4rem}.related ul{display:flex;flex-wrap:wrap;gap:.45rem;list-style:none;padding:0;margin:0}.related a{display:inline-block;padding:.25rem .7rem;border:1px solid #8884;border-radius:999px;font-size:.85rem;text-decoration:none}</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -742,6 +742,11 @@ curl "${HOST}/api?type=bytes&slot=3"</code></pre>
 <p>Calculate slots entirely client-side: <a href="${FULL_TOOL}">Storage Slot Calculator on formatho.com</a>.</p>
 <h2>All Formatho edge APIs</h2>
 <p>Browse every free Formatho Worker tool on the <a href="https://formatho-tools.filesformatho.workers.dev/">Formatho Tools index</a>.</p>
+
+<nav class="related" aria-label="Related tools">
+<h2>Related free edge tools</h2>
+<ul><li><a href="https://md5-generator-formatho.filesformatho.workers.dev/" title="MD5 hashes for checksums &amp; legacy use.">MD5 Generator</a></li><li><a href="https://sha256-generator-formatho.filesformatho.workers.dev/" title="SHA-256 hashes via Web Crypto.">SHA-256 Generator</a></li><li><a href="https://hash-generator-formatho.filesformatho.workers.dev/" title="MD5, SHA-1, SHA-256, SHA-512 in one call.">Hash Generator</a></li><li><a href="https://hmac-generator-formatho.filesformatho.workers.dev/" title="HMAC signatures: SHA-1/256/384/512, hex or Base64.">HMAC Generator</a></li><li><a href="https://aes-encryption-formatho.filesformatho.workers.dev/" title="AES-256-GCM encrypt &amp; decrypt — PBKDF2-SHA256 key derivation, base64 or hex envelope.">AES Encryption</a></li><li><a href="https://key-format-converter-formatho.filesformatho.workers.dev/" title="PKCS#1 ⇄ PKCS#8, SPKI ⇄ PKCS#1 public, PEM ⇄ DER — round-trip verified, key size in bits.">RSA Key Format Converter</a></li></ul>
+</nav>
 <footer>© formatho.com · <a href="${HOST}/sitemap.xml">sitemap.xml</a> · Part of the <a href="https://formatho.com">Formatho</a> privacy-first tool suite.</footer>
 </body>
 </html>`;

@@ -320,7 +320,7 @@ const LANDING_HTML = `<!DOCTYPE html>
 <title>Security Headers Checker — Scan, Grade &amp; Generate HTTP Headers, Free &amp; Private</title>
 <meta name="description" content="Free security headers scanner &amp; API. Scan any URL for HSTS, CSP, X-Content-Type-Options, X-Frame-Options, Referrer-Policy &amp; more — get a grade plus ready-to-paste nginx, Apache and Express config.">
 <link rel="canonical" href="${HOST}/">
-<style>body{font-family:system-ui,-apple-system,sans-serif;max-width:780px;margin:2rem auto;padding:0 1rem;line-height:1.6;color:#1a202c}h1{font-size:1.6rem}pre{background:#f6f8fa;padding:.8rem;border-radius:8px;overflow:auto;font-size:.85rem}code{background:#f6f8fa;padding:.1rem .3rem;border-radius:4px}.cta{display:inline-block;margin:.25rem 0 .35rem;padding:.65rem 1.1rem;border-radius:8px;background:#0a7d3c;color:#fff !important;font-weight:600;text-decoration:none}.cta:hover{background:#086b33}.cta-sub{color:#888;font-size:.85rem;margin:0 0 1.5rem}</style>
+<style>body{font-family:system-ui,-apple-system,sans-serif;max-width:780px;margin:2rem auto;padding:0 1rem;line-height:1.6;color:#1a202c}h1{font-size:1.6rem}pre{background:#f6f8fa;padding:.8rem;border-radius:8px;overflow:auto;font-size:.85rem}code{background:#f6f8fa;padding:.1rem .3rem;border-radius:4px}.cta{display:inline-block;margin:.25rem 0 .35rem;padding:.65rem 1.1rem;border-radius:8px;background:#0a7d3c;color:#fff !important;font-weight:600;text-decoration:none}.cta:hover{background:#086b33}.cta-sub{color:#888;font-size:.85rem;margin:0 0 1.5rem}.related{margin-top:2rem}.related h2{font-size:1.05rem;margin:0 0 .4rem}.related ul{display:flex;flex-wrap:wrap;gap:.45rem;list-style:none;padding:0;margin:0}.related a{display:inline-block;padding:.25rem .7rem;border:1px solid #8884;border-radius:999px;font-size:.85rem;text-decoration:none}</style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebApplication","name":"Security Headers Checker","url":"${HOST}/","description":"Scan any URL's response headers for HSTS, CSP, X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy and cross-origin isolation — graded A+ to F with nginx, Apache and Express config snippets. Free, private, no tracking.","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Formatho","url":"https://formatho.com"}}
 </script>
@@ -353,6 +353,11 @@ curl -X POST https://security-headers-formatho.filesformatho.workers.dev/api \\
 
 <h2>All Formatho edge APIs</h2>
 <p>Browse every free Formatho Worker tool on the <a href="https://formatho-tools.filesformatho.workers.dev/">Formatho Tools index</a>.</p>
+
+<nav class="related" aria-label="Related tools">
+<h2>Related free edge tools</h2>
+<ul><li><a href="https://json-diff-formatho.filesformatho.workers.dev/" title="Structural JSON comparison — added/removed/changed paths, RFC 6901 pointers, optional verified JSON Patch.">JSON Diff</a></li><li><a href="https://json-formatter-formatho.filesformatho.workers.dev/" title="Format &amp; validate JSON with configurable indent.">JSON Formatter</a></li><li><a href="https://base64-formatho.filesformatho.workers.dev/" title="Unicode-safe Base64 encode &amp; decode.">Base64 Encoder/Decoder</a></li><li><a href="https://uuid-generator-formatho.filesformatho.workers.dev/" title="RFC 4122 v4 UUIDs, bulk up to 100.">UUID Generator</a></li></ul>
+</nav>
 <footer>© formatho.com · <a href="${HOST}/sitemap.xml">sitemap.xml</a> · Part of the <a href="https://formatho.com">Formatho</a> privacy-first tool suite.</footer>
 </body>
 </html>`;
