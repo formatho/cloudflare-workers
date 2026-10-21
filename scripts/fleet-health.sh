@@ -5,8 +5,10 @@
 # Live checks per worker: GET / (200 + <title>), GET /sitemap.xml (200), GET /api (< 500),
 #   landing carries >=1 <script type="application/ld+json"> block that parses as JSON
 #   (guards rich-results eligibility; the 09-30 fleet-wide JSON-LD fix made standing here),
-#   and every formatho.com backlink on the landing page resolves 200 after redirects
-#   (guards the 2026-09-26 drift class: stale root-slug URLs 404ing after the /tools/* move).
+#   and every formatho.com backlink on the landing page resolves 200 after redirects,
+#   probed exactly as published (no invented trailing slash) with one retry for origin
+#   transients (guards the 2026-09-26 drift class: stale root-slug URLs 404ing after
+#   the /tools/* move). Retry history is printed after the results table.
 # Drift checks: local wrangler.toml worker names vs advertised URLs (both directions).
 # Exit 0 = all green; exit 1 = any live failure or drift mismatch.
 #
@@ -21,6 +23,9 @@ BASE_RE='https://[a-z0-9-]+\.filesformatho\.workers\.dev'
 INFRA_SKIP='^(formatho-tools|formatho-edge-cache|formatho-embed|formatho-geo-files|formatho-og)$'
 
 fail=0
+RETRY_LOG="/tmp/fh-retries.$$"
+export RETRY_LOG
+: > "$RETRY_LOG"
 
 advertised=()
 while IFS= read -r u; do advertised+=("$u"); done < <(grep -oE "$BASE_RE" "$INDEX_SRC" | sort -u)
@@ -41,7 +46,15 @@ check_host() {
   bl_ok=0; bl_detail=""
   while IFS= read -r u; do
     [ -z "$u" ] && continue
-    code=$(curl -s -L --max-time "$t" -o /dev/null -w '%{http_code}' "$u/")
+    # Probe the href exactly as published. Appending '/' forced a 301 hop on every
+    # /tools/* link; a slow hop mid-sweep made curl report the stale 301 code —
+    # the recurring "first-pass transient FAIL" (10-20, 10-21 PM).
+    code=$(curl -s -L --max-time "$t" -o /dev/null -w '%{http_code}' "$u")
+    if [ "$code" != "200" ]; then
+      sleep 1
+      code=$(curl -s -L --max-time "$t" -o /dev/null -w '%{http_code}' "$u")
+      [ "$code" = "200" ] && echo "$base $u retry-ok" >> "$RETRY_LOG"
+    fi
     if [ "$code" = "200" ]; then bl_ok=$((bl_ok+1)); else bl_detail="${bl_detail} ${u}:${code}"; fi
   done <<< "$bl"
   # JSON-LD check: landing must carry structured data and every block must parse as JSON.
@@ -86,6 +99,11 @@ export -f check_host
 printf '%s\n' "${advertised[@]}" | xargs -P 10 -I{} bash -c 'check_host "$@"' _ {} "$T" | sort | tee /tmp/fh-results.$$
 grep -q '^FAIL' /tmp/fh-results.$$ && fail=1
 rm -f /tmp/fh-results.$$
+if [ -s "$RETRY_LOG" ]; then
+  echo "--- backlink retries (transient, recovered) ---"
+  cat "$RETRY_LOG"
+fi
+rm -f "$RETRY_LOG"
 
 echo "--- drift (local wrangler.toml names vs advertised index) ---"
 local_names=()
