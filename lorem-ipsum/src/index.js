@@ -6,7 +6,7 @@ const JSON_HEADERS = {
   'X-Privacy-Policy': 'Zero tracking, zero data collection',
 };
 const HOST = 'https://lorem-ipsum-formatho.filesformatho.workers.dev';
-const FULL_TOOL = 'https://formatho.com/tools/lorem';
+const FULL_TOOL = 'https://formatho.com/tools';
 
 const LANDING_HTML = `<!DOCTYPE html>
 <html lang="en">
@@ -14,7 +14,7 @@ const LANDING_HTML = `<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lorem Ipsum Generator Online — Free &amp; Private</title>
-<meta name="description" content="Generate lorem ipsum placeholder text — paragraphs, sentences, or words — free, privacy-first API with zero tracking. Full generator with options on formatho.com.">
+<meta name="description" content="Generate lorem ipsum placeholder text — paragraphs, sentences, or words — free, privacy-first API with zero tracking. More free developer tools on formatho.com.">
 <link rel="canonical" href="${HOST}/">
 <style>
 :root { color-scheme: light dark; }
@@ -36,7 +36,7 @@ footer { margin-top: 2.5rem; border-top: 1px solid #8884; padding-top: 1rem; fon
   "@type": "WebApplication",
   "name": "Lorem Ipsum Generator Online — Free & Private",
   "url": "https://lorem-ipsum-formatho.filesformatho.workers.dev/",
-  "description": "Generate lorem ipsum placeholder text — paragraphs, sentences, or words — free, privacy-first API with zero tracking. Full generator with options on formatho.com.",
+  "description": "Generate lorem ipsum placeholder text — paragraphs, sentences, or words — free, privacy-first API with zero tracking. More free developer tools on formatho.com.",
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "Any",
   "isAccessibleForFree": true,
@@ -65,7 +65,7 @@ footer { margin-top: 2.5rem; border-top: 1px solid #8884; padding-top: 1rem; fon
   <p class="tagline">A free edge API by <a href="https://formatho.com">formatho.com</a>, privacy-first developer tools.</p>
 </header>
 
-<a class="cta" href="https://formatho.com/tools/lorem">Open the full browser tool &#8594;</a>
+<a class="cta" href="https://formatho.com/tools">Browse 100+ free browser tools &#8594;</a>
 <p class="cta-sub">Free, no signup, runs entirely in your browser &#8212; your data never leaves your device.</p>
 
 <div class="badges">
@@ -76,8 +76,8 @@ footer { margin-top: 2.5rem; border-top: 1px solid #8884; padding-top: 1rem; fon
 <p>Parameters: <code>paragraphs</code> (default 3), <code>sentences</code> per paragraph (default 4-6 random), <code>format</code> = json | text | html. Classic "Lorem ipsum dolor sit amet..." opening.</p>
 <p>Full parameter reference: <a href="${HOST}/api">/api endpoint</a>.</p>
 <div class="privacy"><strong>Privacy-first:</strong> no input data to track — text is generated deterministically at the edge. No logs, no cookies.</div>
-<h2>Full browser tool</h2>
-<p>Generate with full options, client-side: <a href="${FULL_TOOL}">Lorem Ipsum Generator on formatho.com</a>.</p>
+<h2>More free tools</h2>
+<p>Browse 100+ free client-side developer tools: <a href="${FULL_TOOL}">formatho.com/tools</a>.</p>
 <h2>All Formatho edge APIs</h2>
 <p>Browse every free Formatho Worker tool on the <a href="https://formatho-tools.filesformatho.workers.dev/">Formatho Tools index</a>.</p>
 
@@ -132,7 +132,7 @@ function handleApi(request) {
   }, { headers: JSON_HEADERS });
 }
 
-const LLMS_TXT = "# Lorem Ipsum Generator Online — Free & Private\n\n> Generate lorem ipsum placeholder text — paragraphs, sentences, or words — free, privacy-first API with zero tracking. Full generator with options on formatho.com. Runs on Cloudflare's edge: zero tracking, zero data collection, nothing logged. No signup, no cookies.\n\n- [Use this tool]: https://lorem-ipsum-formatho.filesformatho.workers.dev/\n- [JSON API]: https://lorem-ipsum-formatho.filesformatho.workers.dev/api — GET and POST, CORS-enabled\n- [Full browser tool on formatho.com]: https://formatho.com/tools/lorem\n- [All 38 Formatho edge tools]: https://formatho-tools.filesformatho.workers.dev/\n- [Formatho main site]: https://formatho.com/ — 100+ free client-side developer tools\n";
+const LLMS_TXT = "# Lorem Ipsum Generator Online — Free & Private\n\n> Generate lorem ipsum placeholder text — paragraphs, sentences, or words — free, privacy-first API with zero tracking. More free developer tools on formatho.com. Runs on Cloudflare's edge: zero tracking, zero data collection, nothing logged. No signup, no cookies.\n\n- [Use this tool]: https://lorem-ipsum-formatho.filesformatho.workers.dev/\n- [JSON API]: https://lorem-ipsum-formatho.filesformatho.workers.dev/api — GET and POST, CORS-enabled\n- [All Formatho browser tools]: https://formatho.com/tools\n- [All 71 Formatho edge tools]: https://formatho-tools.filesformatho.workers.dev/\n- [Formatho main site]: https://formatho.com/ — 100+ free client-side developer tools\n";
 
 export default {
   async fetch(request) {
