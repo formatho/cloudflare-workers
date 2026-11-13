@@ -3,4 +3,4 @@ main = "src/index.js"
 compatibility_date = "2026-08-01"
 compatibility_flags = ["nodejs_compat"]
 
-# Deployed on workers.dev: og-formatho.filesformatho.workers.dev
+# Deployed on workers.dev: formatho-og.filesformatho.workers.dev
