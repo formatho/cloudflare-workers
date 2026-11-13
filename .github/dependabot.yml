@@ -1,0 +1,21 @@
+# Dependabot — formatho/cloudflare-workers (72-worker fleet)
+#
+# Only /og-image ships runtime npm dependencies (@resvg/resvg-wasm).
+# Every other worker is dependency-free (metadata-only package.json) and is
+# intentionally NOT listed — add a new entry if a worker gains deps.
+# Context: 2026-11-13 audit found unused satori dragging vulnerable fflate
+# 0.7.3 (GHSA-px8p-9vwx-vf98) into the lockfile; removed, audit now clean.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /og-image
+    schedule:
+      interval: weekly
+      timezone: Asia/Calcutta
+    commit-message:
+      prefix: "deps(og-image)"
+    groups:
+      security-and-patches:
+        update-types:
+          - "patch"
+          - "security"
